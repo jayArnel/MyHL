@@ -9,6 +9,10 @@
 "use as"                        return 'USE_AS'
 "begin vars"                    return 'BEGIN_VARS'
 "end vars"                      return 'END_VARS'
+"begin statements"              return 'BEGIN_STATEMENTS'
+"end statements"                return 'END_STATEMENTS'
+"read"                          return 'READ'
+"print"                         return 'PRINT'
 [a-zA-Z_]?\"(\\.|[^\\"])*\"     return 'STRING'
 [0-9]+("."[0-9]+)?\b            return 'NUM'
 [a-zA-Z_]([a-zA-Z_]|[0-9])*     return 'IDENTIFIER'
@@ -20,6 +24,8 @@
 "%"                             return '%'
 "("                             return '('
 ")"                             return ')'
+"="                             return '='
+";"                             return ';'
 <<EOF>>                         return 'EOF'
 .                               return 'INVALID'
 
@@ -32,13 +38,15 @@
 %left '^'
 %left UMINUS
 
-%start var_block
+%start prog_block
 
 %% /* language grammar */
 
-expressions
-    : e EOF
+expression
+    : e
         {return $1;}
+    | STRING
+    | IDENTIFIER
     ;
 
 e
@@ -58,10 +66,24 @@ e
         {$$ = $2;}
     | NUM
         {$$ = Number(yytext);}
-    | E
-        {$$ = Math.E;}
-    | PI
-        {$$ = Math.PI;}
+    ;
+
+assignment
+    : IDENTIFIER '=' expression
+    ;
+
+print
+    : PRINT IDENTIFIER
+    ;
+
+read
+    : READ IDENTIFIER
+    ;
+
+statement
+    : print ';'
+    | read ';'
+    | assignment ';'
     ;
 
 identifier_list
@@ -87,4 +109,21 @@ var_block
     : BEGIN_VARS NEWLINE END_VARS
     | BEGIN_VARS NEWLINE vars NEWLINE END_VARS
     | var_block EOF
+    ;
+
+statements
+    : statement
+    | statement NEWLINE statements
+    ;
+
+
+prog_block
+    : BEGIN_STATEMENTS NEWLINE END_STATEMENTS
+    | BEGIN_STATEMENTS NEWLINE statements NEWLINE END_STATEMENTS
+    | prog_block EOF
+    ;
+
+program
+    : var_block prog_block
+    | program EOF
     ;

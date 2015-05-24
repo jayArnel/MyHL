@@ -48,6 +48,7 @@
                 $('#out').html(parser.parse($('#input').val()));
             } catch(e) {
                 $('#out').html(e.verbose);
+                console.log(e);
             }
         });
     });
