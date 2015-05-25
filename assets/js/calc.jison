@@ -12,7 +12,8 @@ variables = []
 %lex
 %%
 
-\n+                              return 'NEWLINE'
+
+\n+                             return 'NEWLINE'
 \s+                             /* skip whitespace */
 "number"                        return 'NUMBER'
 "word"                          return 'WORD'
@@ -45,8 +46,6 @@ variables = []
 
 %left '+' '-'
 %left '*' '/'
-%left '^'
-%left UMINUS
 
 %start program
 
@@ -105,13 +104,14 @@ dtype
     ;
 
 variable_declaration
-    : identifier_list USE_AS dtype
+    : identifier_list USE_AS dtype ';'
         {process_var($1, $3)}
     ;
 
 vars
     : variable_declaration
     | vars NEWLINE variable_declaration
+    | vars variable_declaration
     ;
 
 var_block
@@ -122,9 +122,9 @@ var_block
 
 statements
     : statement
-    | statement statements
+    | statements NEWLINE statement
+    | statements statement
     ;
-
 
 prog_block
     : BEGIN_STATEMENTS NEWLINE END_STATEMENTS
@@ -133,7 +133,7 @@ prog_block
     ;
 
 program
-    : var_block prog_block
+    : var_block NEWLINE prog_block
     | program EOF
     ;
 
