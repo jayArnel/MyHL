@@ -1,20 +1,38 @@
-/* lexical grammar */
+
 %{
 function Variable(identifier,dtype) {
     this.identifier = identifier;
     this.dtype = dtype;
     this.val = null;
+
+    this.setVal = function(val) {
+        if (val instanceof Variable) {
+            if (this.dtype !== val.dtype) {
+                throw new Error("Incompatible data type. Storing " +val.dtype+" to a "+ this.dtype +".");
+            }
+        }
+        this.val = val;
+    }
+
+    this.getVal = function() {
+        if (this.val instanceof Variable){
+            return this.val.getVal();
+        } else {
+            return this.val;
+        }
+    }
 }
 
 variables = []
 %}
 
+/* lexical grammar */
 %lex
 %%
 
-
-\n+                             return 'NEWLINE'
+\s*\n+                             return 'NEWLINE'
 \s+                             /* skip whitespace */
+
 "number"                        return 'NUMBER'
 "word"                          return 'WORD'
 "use as"                        return 'USE_AS'
@@ -45,7 +63,7 @@ variables = []
 /* operator associations and precedence */
 
 %left '+' '-'
-%left '*' '/'
+%left '*' '/' '%'
 
 %start program
 
@@ -66,11 +84,12 @@ e
         {$$ = $1*$3;}
     | e '/' e
         {$$ = $1/$3;}
+    | e '%' e
+        {$$ = $1%$3;}
     | '(' e ')'
         {$$ = $2;}
     | NUM
         {$$ = Number(yytext);}
-    | IDENTIFIER
     ;
 
 assignment
@@ -113,14 +132,12 @@ variable_declaration
 
 vars
     : variable_declaration
-    | vars NEWLINE variable_declaration
     | vars variable_declaration
     ;
 
 var_block
     : BEGIN_VARS NEWLINE END_VARS
     | BEGIN_VARS NEWLINE vars NEWLINE END_VARS
-    | var_block NEWLINE
     ;
 
 statements
@@ -137,6 +154,7 @@ prog_block
 
 program
     : var_block NEWLINE prog_block
+    | NEWLINE var_block NEWLINE prog_block
     | program EOF
     ;
 
@@ -158,16 +176,14 @@ var print = function(identifier) {
     if (variable === null) {
         throw new Error( identifier +" variable has not been declared");
     }
-    if (variable.val === null){
+    var val = variable.getVal();
+    if (val === null){
         $('#out').append('<span class = "gray">null</span>');
     } else {
-        var val = variable.val
-        while (val instanceof Variable) {
-            val = val.val
-        }
         $('#out').append(val);
     }
 }
+
 var read = function(identifier) {
     var variable = getVar(identifier);
     if (variable === null) {
@@ -229,3 +245,4 @@ var assign = function(identifier, val) {
         variable.val = val;
     }
 }
+

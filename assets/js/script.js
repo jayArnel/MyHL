@@ -58,7 +58,7 @@
                 $('#out').removeClass('bad');
             } catch(e) {
                 $('#out').addClass('bad');
-                $('#out').append(e.verbose);
+                $('#out').html(e.verbose);
                 console.log(e);
             }
             $('#out').append('<p class="gray">Done.</p>')
