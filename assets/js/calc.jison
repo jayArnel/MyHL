@@ -132,6 +132,7 @@ variable_declaration
 
 vars
     : variable_declaration
+    | vars NEWLINE variable_declaration
     | vars variable_declaration
     ;
 
