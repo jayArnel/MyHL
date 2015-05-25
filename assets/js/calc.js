@@ -72,37 +72,40 @@
   }
 */
 var parser = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,4],$V1=[1,40],$V2=[1,10],$V3=[1,16],$V4=[1,17],$V5=[6,31],$V6=[1,31,40],$V7=[1,32],$V8=[1,30],$V9=[1,31],$Va=[6,18,20,31],$Vb=[1,54],$Vc=[1,55],$Vd=[1,56],$Ve=[1,57],$Vf=[1,58],$Vg=[1,59],$Vh=[1,60],$Vi=[7,8,9,10,11,13,22],$Vj=[7,8,13,22];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,4],$V1=[1,40],$V2=[1,10],$V3=[1,16],$V4=[1,17],$V5=[14,31],$V6=[1,31,40],$V7=[1,32],$V8=[1,30],$V9=[1,31],$Va=[14,18,20,31],$Vb=[1,54],$Vc=[1,55],$Vd=[1,56],$Ve=[1,57],$Vf=[1,58],$Vg=[1,59],$Vh=[1,60],$Vi=[1,61],$Vj=[1,62],$Vk=[5,6,7,8,9,11,22],$Vl=[5,6,11,22];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"expression":3,"e":4,"STRING":5,"IDENTIFIER":6,"+":7,"-":8,"*":9,"/":10,"%":11,"(":12,")":13,"NUM":14,"assignment":15,"=":16,"print":17,"PRINT":18,"read":19,"READ":20,"statement":21,";":22,"identifier_list":23,",":24,"dtype":25,"NUMBER":26,"WORD":27,"variable_declaration":28,"USE_AS":29,"vars":30,"NEWLINE":31,"var_block":32,"BEGIN_VARS":33,"END_VARS":34,"statements":35,"prog_block":36,"BEGIN_STATEMENTS":37,"END_STATEMENTS":38,"program":39,"EOF":40,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"STRING",6:"IDENTIFIER",7:"+",8:"-",9:"*",10:"/",11:"%",12:"(",13:")",14:"NUM",16:"=",18:"PRINT",20:"READ",22:";",24:",",26:"NUMBER",27:"WORD",29:"USE_AS",31:"NEWLINE",33:"BEGIN_VARS",34:"END_VARS",37:"BEGIN_STATEMENTS",38:"END_STATEMENTS",40:"EOF"},
-productions_: [0,[3,1],[3,1],[3,1],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,1],[15,3],[17,2],[19,2],[21,2],[21,2],[21,2],[23,1],[23,3],[25,1],[25,1],[28,4],[30,1],[30,3],[30,2],[32,3],[32,5],[35,1],[35,3],[35,2],[36,3],[36,5],[36,2],[39,3],[39,4],[39,2]],
+symbols_: {"error":2,"expression":3,"e":4,"+":5,"-":6,"*":7,"/":8,"%":9,"(":10,")":11,"NUM":12,"STRING":13,"IDENTIFIER":14,"assignment":15,"=":16,"print":17,"PRINT":18,"read":19,"READ":20,"statement":21,";":22,"identifier_list":23,",":24,"dtype":25,"NUMBER":26,"WORD":27,"variable_declaration":28,"USE_AS":29,"vars":30,"NEWLINE":31,"var_block":32,"BEGIN_VARS":33,"END_VARS":34,"statements":35,"prog_block":36,"BEGIN_STATEMENTS":37,"END_STATEMENTS":38,"program":39,"EOF":40,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"+",6:"-",7:"*",8:"/",9:"%",10:"(",11:")",12:"NUM",13:"STRING",14:"IDENTIFIER",16:"=",18:"PRINT",20:"READ",22:";",24:",",26:"NUMBER",27:"WORD",29:"USE_AS",31:"NEWLINE",33:"BEGIN_VARS",34:"END_VARS",37:"BEGIN_STATEMENTS",38:"END_STATEMENTS",40:"EOF"},
+productions_: [0,[3,1],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,1],[4,1],[4,1],[15,3],[17,2],[17,2],[17,2],[19,2],[21,2],[21,2],[21,2],[23,1],[23,3],[25,1],[25,1],[28,4],[30,1],[30,3],[30,2],[32,3],[32,5],[35,1],[35,3],[35,2],[36,3],[36,5],[36,2],[39,3],[39,4],[39,2]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 4:
+case 2:
 this.$ = $$[$0-2]+$$[$0];
 break;
+case 3:
+checkOperation($$[$0-2], $$[$0]);this.$ = $$[$0-2]-$$[$0];
+break;
+case 4:
+checkOperation($$[$0-2], $$[$0]);this.$ = $$[$0-2]*$$[$0];
+break;
 case 5:
-this.$ = $$[$0-2]-$$[$0];
+checkOperation($$[$0-2], $$[$0]);this.$ = $$[$0-2]/$$[$0];
 break;
 case 6:
-this.$ = $$[$0-2]*$$[$0];
+checkOperation($$[$0-2], $$[$0]);this.$ = $$[$0-2]%$$[$0];
 break;
 case 7:
-this.$ = $$[$0-2]/$$[$0];
-break;
-case 8:
-this.$ = $$[$0-2]%$$[$0];
-break;
-case 9:
 this.$ = $$[$0-1];
 break;
-case 10:
+case 8:
 this.$ = Number(yytext);
+break;
+case 10:
+this.$ = getVar($$[$0]).getVal()
 break;
 case 11:
 assign($$[$0-2], $$[$0])
@@ -111,21 +114,27 @@ case 12:
 print($$[$0])
 break;
 case 13:
+$('#out').append($$[$0].substring(1, $$[$0].length - 1));
+break;
+case 14:
+$('#out').append($$[$0])
+break;
+case 15:
 read($$[$0])
 break;
-case 17:
+case 19:
 this.$ = $$[$0]
 break;
-case 18:
+case 20:
 this.$ = $$[$0-2]+','+$$[$0]
 break;
-case 21:
+case 23:
 process_var($$[$0-3], $$[$0-1])
 break;
 }
 },
-table: [{31:[1,3],32:2,33:$V0,39:1},{1:[3],40:[1,5]},{31:[1,6]},{32:7,33:$V0},{31:[1,8]},o($V1,[2,35]),{36:9,37:$V2},{31:[1,11]},{6:$V3,23:15,28:14,30:13,34:[1,12]},o($V1,[2,33],{31:$V4}),{31:[1,18]},{36:19,37:$V2},{31:[2,25]},{6:$V3,23:15,28:21,31:[1,20]},o($V5,[2,22]),{29:[1,22]},{24:[1,23],29:[2,17]},o($V6,[2,32]),{6:$V7,15:29,17:27,18:$V8,19:28,20:$V9,21:26,35:25,38:[1,24]},o($V1,[2,34],{31:$V4}),{6:$V3,23:15,28:34,34:[1,33]},o($V5,[2,24]),{25:35,26:[1,36],27:[1,37]},{6:$V3,23:38},o($V6,[2,30]),{6:$V7,15:29,17:27,18:$V8,19:28,20:$V9,21:40,31:[1,39]},o($Va,[2,27]),{22:[1,41]},{22:[1,42]},{22:[1,43]},{6:[1,44]},{6:[1,45]},{16:[1,46]},{31:[2,26]},o($V5,[2,23]),{22:[1,47]},{22:[2,19]},{22:[2,20]},{29:[2,18]},{6:$V7,15:29,17:27,18:$V8,19:28,20:$V9,21:49,38:[1,48]},o($Va,[2,29]),o($Va,[2,14]),o($Va,[2,15]),o($Va,[2,16]),{22:[2,12]},{22:[2,13]},{3:50,4:51,5:[1,52],6:[1,53],12:$Vb,14:$Vc},o($V5,[2,21]),o($V6,[2,31]),o($Va,[2,28]),{22:[2,11]},{7:$Vd,8:$Ve,9:$Vf,10:$Vg,11:$Vh,22:[2,1]},{22:[2,2]},{22:[2,3]},{4:61,12:$Vb,14:$Vc},o($Vi,[2,10]),{4:62,12:$Vb,14:$Vc},{4:63,12:$Vb,14:$Vc},{4:64,12:$Vb,14:$Vc},{4:65,12:$Vb,14:$Vc},{4:66,12:$Vb,14:$Vc},{7:$Vd,8:$Ve,9:$Vf,10:$Vg,11:$Vh,13:[1,67]},o($Vj,[2,4],{9:$Vf,10:$Vg,11:$Vh}),o($Vj,[2,5],{9:$Vf,10:$Vg,11:$Vh}),o($Vi,[2,6]),o($Vi,[2,7]),o($Vi,[2,8]),o($Vi,[2,9])],
-defaultActions: {12:[2,25],33:[2,26],36:[2,19],37:[2,20],38:[2,18],44:[2,12],45:[2,13],50:[2,11],52:[2,2],53:[2,3]},
+table: [{31:[1,3],32:2,33:$V0,39:1},{1:[3],40:[1,5]},{31:[1,6]},{32:7,33:$V0},{31:[1,8]},o($V1,[2,37]),{36:9,37:$V2},{31:[1,11]},{14:$V3,23:15,28:14,30:13,34:[1,12]},o($V1,[2,35],{31:$V4}),{31:[1,18]},{36:19,37:$V2},{31:[2,27]},{14:$V3,23:15,28:21,31:[1,20]},o($V5,[2,24]),{29:[1,22]},{24:[1,23],29:[2,19]},o($V6,[2,34]),{14:$V7,15:29,17:27,18:$V8,19:28,20:$V9,21:26,35:25,38:[1,24]},o($V1,[2,36],{31:$V4}),{14:$V3,23:15,28:34,34:[1,33]},o($V5,[2,26]),{25:35,26:[1,36],27:[1,37]},{14:$V3,23:38},o($V6,[2,32]),{14:$V7,15:29,17:27,18:$V8,19:28,20:$V9,21:40,31:[1,39]},o($Va,[2,29]),{22:[1,41]},{22:[1,42]},{22:[1,43]},{12:[1,46],13:[1,45],14:[1,44]},{14:[1,47]},{16:[1,48]},{31:[2,28]},o($V5,[2,25]),{22:[1,49]},{22:[2,21]},{22:[2,22]},{29:[2,20]},{14:$V7,15:29,17:27,18:$V8,19:28,20:$V9,21:51,38:[1,50]},o($Va,[2,31]),o($Va,[2,16]),o($Va,[2,17]),o($Va,[2,18]),{22:[2,12]},{22:[2,13]},{22:[2,14]},{22:[2,15]},{3:52,4:53,10:$Vb,12:$Vc,13:$Vd,14:$Ve},o($V5,[2,23]),o($V6,[2,33]),o($Va,[2,30]),{22:[2,11]},{5:$Vf,6:$Vg,7:$Vh,8:$Vi,9:$Vj,22:[2,1]},{4:63,10:$Vb,12:$Vc,13:$Vd,14:$Ve},o($Vk,[2,8]),o($Vk,[2,9]),o($Vk,[2,10]),{4:64,10:$Vb,12:$Vc,13:$Vd,14:$Ve},{4:65,10:$Vb,12:$Vc,13:$Vd,14:$Ve},{4:66,10:$Vb,12:$Vc,13:$Vd,14:$Ve},{4:67,10:$Vb,12:$Vc,13:$Vd,14:$Ve},{4:68,10:$Vb,12:$Vc,13:$Vd,14:$Ve},{5:$Vf,6:$Vg,7:$Vh,8:$Vi,9:$Vj,11:[1,69]},o($Vl,[2,2],{7:$Vh,8:$Vi,9:$Vj}),o($Vl,[2,3],{7:$Vh,8:$Vi,9:$Vj}),o($Vk,[2,4]),o($Vk,[2,5]),o($Vk,[2,6]),o($Vk,[2,7])],
+defaultActions: {12:[2,27],33:[2,28],36:[2,21],37:[2,22],38:[2,20],44:[2,12],45:[2,13],46:[2,14],47:[2,15],52:[2,11]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -309,6 +318,7 @@ var process_var = function(identifiers, dtype) {
 }
 
 var print = function(identifier) {
+    console.log(variables);
     var variable = getVar(identifier);
     if (variable === null) {
         throw new Error( identifier +" variable has not been declared");
@@ -322,18 +332,19 @@ var print = function(identifier) {
 }
 
 var read = function(identifier) {
+    console.log(variables);
     var variable = getVar(identifier);
     if (variable === null) {
         throw new Error( identifier +" variable has not been declared");
     }
-    var input = prompt("Enter value for variable: ");
+    var input = prompt("Enter value for variable"+identifier+": ");
     if (variable.dtype === 'number') {
         input = +input;
         if (isNaN(input)){
             throw new Error("Failure to parse input into a number.");
         }
     }
-    variable.val = input;
+    variable.setVal(input);
 }
 var isAlreadyDeclared = function(identifier) {
     return getVar(identifier) !== null;
@@ -383,7 +394,9 @@ var assign = function(identifier, val) {
     }
 }
 
-/* generated by jison-lex 0.3.4 */
+var checkOperation = function(arg1, arg2) {
+    
+}/* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
 
@@ -733,27 +746,27 @@ case 9:return 20
 break;
 case 10:return 18
 break;
-case 11:return 5
+case 11:return 13
 break;
-case 12:return 14
+case 12:return 12
 break;
-case 13:return 6
+case 13:return 14
 break;
 case 14:return 24
 break;
-case 15:return 9
+case 15:return 7
 break;
-case 16:return 10
+case 16:return 8
 break;
-case 17:return 8
+case 17:return 6
 break;
-case 18:return 7
+case 18:return 5
 break;
-case 19:return 11
+case 19:return 9
 break;
-case 20:return 12
+case 20:return 10
 break;
-case 21:return 13
+case 21:return 11
 break;
 case 22:return 16
 break;

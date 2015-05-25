@@ -71,25 +71,26 @@ variables = []
 
 expression
     : e
-    | STRING
-    | IDENTIFIER
     ;
 
 e
     : e '+' e
         {$$ = $1+$3;}
     | e '-' e
-        {$$ = $1-$3;}
+        {checkOperation($1, $3);$$ = $1-$3;}
     | e '*' e
-        {$$ = $1*$3;}
+        {checkOperation($1, $3);$$ = $1*$3;}
     | e '/' e
-        {$$ = $1/$3;}
+        {checkOperation($1, $3);$$ = $1/$3;}
     | e '%' e
-        {$$ = $1%$3;}
+        {checkOperation($1, $3);$$ = $1%$3;}
     | '(' e ')'
         {$$ = $2;}
     | NUM
         {$$ = Number(yytext);}
+    | STRING
+    | IDENTIFIER
+        {$$ = getVar($1).getVal()}}
     ;
 
 assignment
@@ -100,6 +101,10 @@ assignment
 print
     : PRINT IDENTIFIER
         {print($2)}
+    | PRINT STRING
+        {$('#out').append($2.substring(1, $2.length - 1));}
+    | PRINT NUM
+        {$('#out').append($2)}
     ;
 
 read
@@ -173,6 +178,7 @@ var process_var = function(identifiers, dtype) {
 }
 
 var print = function(identifier) {
+    console.log(variables);
     var variable = getVar(identifier);
     if (variable === null) {
         throw new Error( identifier +" variable has not been declared");
@@ -186,18 +192,19 @@ var print = function(identifier) {
 }
 
 var read = function(identifier) {
+    console.log(variables);
     var variable = getVar(identifier);
     if (variable === null) {
         throw new Error( identifier +" variable has not been declared");
     }
-    var input = prompt("Enter value for variable: ");
+    var input = prompt("Enter value for variable"+identifier+": ");
     if (variable.dtype === 'number') {
         input = +input;
         if (isNaN(input)){
             throw new Error("Failure to parse input into a number.");
         }
     }
-    variable.val = input;
+    variable.setVal(input);
 }
 var isAlreadyDeclared = function(identifier) {
     return getVar(identifier) !== null;
@@ -247,3 +254,6 @@ var assign = function(identifier, val) {
     }
 }
 
+var checkOperation = function(arg1, arg2) {
+    
+}
