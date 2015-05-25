@@ -110,6 +110,12 @@ break;
 case 12:
 read($$[$0])
 break;
+case 16:
+this.$ = $$[$0]
+break;
+case 17:
+this.$ = $$[$0-2]+','+$$[$0]
+break;
 case 20:
 process_var($$[$0-3], $$[$0-1])
 break;
@@ -270,12 +276,16 @@ function Variable(identifier,dtype) {
 
 variables = []
 
-var process_var = function(identifier, dtype) {
-    if (isAlreadyDeclared(identifier)){
-        throw new Error( identifier +" variable already declared");
-    } else {
-        variables.push(new Variable(identifier, dtype));
-    }
+var process_var = function(identifiers, dtype) {
+    var vars = identifiers.split(',');
+    for (i in vars){
+        var identifier = vars[i];
+        if (isAlreadyDeclared(identifier)){
+            throw new Error( identifier +" variable already declared");
+        } else {
+            variables.push(new Variable(identifier, dtype));
+        }
+    }   
 }
 
 var print = function(identifier) {

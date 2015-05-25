@@ -70,6 +70,7 @@ e
         {$$ = $2;}
     | NUM
         {$$ = Number(yytext);}
+    | IDENTIFIER
     ;
 
 assignment
@@ -95,7 +96,9 @@ statement
 
 identifier_list
     : IDENTIFIER
+        {$$ = $1}
     | IDENTIFIER ',' identifier_list
+        {$$ = $1+','+$3}
     ;
 
 dtype
@@ -138,12 +141,16 @@ program
     ;
 
 %%
-var process_var = function(identifier, dtype) {
-    if (isAlreadyDeclared(identifier)){
-        throw new Error( identifier +" variable already declared");
-    } else {
-        variables.push(new Variable(identifier, dtype));
-    }
+var process_var = function(identifiers, dtype) {
+    var vars = identifiers.split(',');
+    for (i in vars){
+        var identifier = vars[i];
+        if (isAlreadyDeclared(identifier)){
+            throw new Error( identifier +" variable already declared");
+        } else {
+            variables.push(new Variable(identifier, dtype));
+        }
+    }   
 }
 
 var print = function(identifier) {
