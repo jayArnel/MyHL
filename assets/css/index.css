@@ -84,13 +84,20 @@ body, .site-wrapper{
   src:url(../fonts/Inconsolata.otf);
 }
 
-.content {
+.content{
   height: 100%;
   font-family: Inconsolata;
   font-size: 15px;
   border-left: 1px solid #777;
   border-bottom: 1px solid #777;
   border-right: 1px solid #777;
+  color:white;
+  background-color: #333;
+  border-radius: 0px;
+}
+
+.content.bad{
+  color:red !important;
 }
 
 .header {

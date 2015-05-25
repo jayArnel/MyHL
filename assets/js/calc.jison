@@ -1,4 +1,18 @@
 /* lexical grammar */
+%{
+    function Variable(id,type) {
+        this.id = id;
+        this.type = type;
+        this.value = null;
+
+        this.setValue = function(value) {
+            this.value = value;
+        }
+    }
+
+    variables = []
+%}
+
 %lex
 %%
 
@@ -26,8 +40,8 @@
 ")"                             return ')'
 "="                             return '='
 ";"                             return ';'
-<<EOF>>                         return 'EOF'
-.                               return 'INVALID'
+<<EOF>>                         {variables = []}return 'EOF'
+.                               {variables = []}return 'INVALID'
 
 /lex
 
@@ -38,13 +52,12 @@
 %left '^'
 %left UMINUS
 
-%start prog_block
+%start program
 
 %% /* language grammar */
 
 expression
     : e
-        {return $1;}
     | STRING
     | IDENTIFIER
     ;
@@ -70,14 +83,17 @@ e
 
 assignment
     : IDENTIFIER '=' expression
+
     ;
 
 print
     : PRINT IDENTIFIER
+        {print($2)}
     ;
 
 read
     : READ IDENTIFIER
+        {read($2)}
     ;
 
 statement
@@ -98,6 +114,7 @@ dtype
 
 variable_declaration
     : identifier_list USE_AS dtype
+        {process_var($1, $3)}
     ;
 
 vars
@@ -108,22 +125,58 @@ vars
 var_block
     : BEGIN_VARS NEWLINE END_VARS
     | BEGIN_VARS NEWLINE vars NEWLINE END_VARS
-    | var_block EOF
     ;
 
 statements
     : statement
-    | statement NEWLINE statements
+    | statement statements
     ;
 
 
 prog_block
     : BEGIN_STATEMENTS NEWLINE END_STATEMENTS
     | BEGIN_STATEMENTS NEWLINE statements NEWLINE END_STATEMENTS
-    | prog_block EOF
     ;
 
 program
     : var_block prog_block
     | program EOF
     ;
+
+%%
+var process_var = function(id, type) {
+    if (isAlreadyDeclared(id)){
+        throw new Error( id +" variable already declared");
+    } else {
+        variables.push(new Variable(id, type));
+    }
+
+    console.log(variables);
+}
+
+var print = function(id) {
+    variable = getVar(id);
+    if (variable === null) {
+        throw new Error( id +" variable has not been declared");
+    }
+    $('#out').append(getVar(id).value);
+}
+var read = function(id) {
+    variable = getVar(id);
+    if (variable === null) {
+        throw new Error( id +" variable has not been declared");
+    }
+    variable.value = prompt("Enter value for variable " + id + ": ");
+}
+var isAlreadyDeclared = function(id) {
+    return getVar(id) !== null
+}
+
+var getVar = function(id){
+    for (i in variables){
+        if (variables[i].id === id) {
+            return variables[i]
+        }
+    }
+    return null
+}

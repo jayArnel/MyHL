@@ -45,8 +45,11 @@
         $(".run").click(function(){
             $('#out').html('')
             try{
-                $('#out').html(parser.parse($('#input').val()));
+                parser.parse($('#input').val());
+                $('#out').removeClass('bad');
             } catch(e) {
+                variables = []
+                $('#out').addClass('bad');
                 $('#out').html(e.verbose);
                 console.log(e);
             }

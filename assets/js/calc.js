@@ -72,20 +72,17 @@
   }
 */
 var parser = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,35],$V1=[1,13],$V2=[1,11],$V3=[1,12],$V4=[1,28],$V5=[1,29],$V6=[1,30],$V7=[1,31],$V8=[1,32],$V9=[1,33],$Va=[1,34],$Vb=[7,8,9,10,11,13,22],$Vc=[7,8,13,22],$Vd=[7,8,9,10,13,22];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,40],$V1=[1,13],$V2=[1,22],$V3=[1,20],$V4=[1,21],$V5=[6,18,20,31],$V6=[1,45],$V7=[1,46],$V8=[1,47],$V9=[1,48],$Va=[1,49],$Vb=[1,50],$Vc=[1,51],$Vd=[1,52],$Ve=[7,8,9,10,11,13,22],$Vf=[7,8,13,22],$Vg=[7,8,9,10,13,22];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"expression":3,"e":4,"STRING":5,"IDENTIFIER":6,"+":7,"-":8,"*":9,"/":10,"^":11,"(":12,")":13,"NUM":14,"assignment":15,"=":16,"print":17,"PRINT":18,"read":19,"READ":20,"statement":21,";":22,"identifier_list":23,",":24,"dtype":25,"NUMBER":26,"WORD":27,"variable_declaration":28,"USE_AS":29,"vars":30,"NEWLINE":31,"var_block":32,"BEGIN_VARS":33,"END_VARS":34,"EOF":35,"statements":36,"prog_block":37,"BEGIN_STATEMENTS":38,"END_STATEMENTS":39,"program":40,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"STRING",6:"IDENTIFIER",7:"+",8:"-",9:"*",10:"/",11:"^",12:"(",13:")",14:"NUM",16:"=",18:"PRINT",20:"READ",22:";",24:",",26:"NUMBER",27:"WORD",29:"USE_AS",31:"NEWLINE",33:"BEGIN_VARS",34:"END_VARS",35:"EOF",38:"BEGIN_STATEMENTS",39:"END_STATEMENTS"},
-productions_: [0,[3,1],[3,1],[3,1],[4,3],[4,3],[4,3],[4,3],[4,3],[4,2],[4,3],[4,1],[15,3],[17,2],[19,2],[21,2],[21,2],[21,2],[23,1],[23,3],[25,1],[25,1],[28,3],[30,1],[30,3],[32,3],[32,5],[32,2],[36,1],[36,3],[37,3],[37,5],[37,2],[40,1],[40,2],[40,2]],
+symbols_: {"error":2,"expression":3,"e":4,"STRING":5,"IDENTIFIER":6,"+":7,"-":8,"*":9,"/":10,"^":11,"(":12,")":13,"NUM":14,"assignment":15,"=":16,"print":17,"PRINT":18,"read":19,"READ":20,"statement":21,";":22,"identifier_list":23,",":24,"dtype":25,"NUMBER":26,"WORD":27,"variable_declaration":28,"USE_AS":29,"vars":30,"NEWLINE":31,"var_block":32,"BEGIN_VARS":33,"END_VARS":34,"statements":35,"prog_block":36,"BEGIN_STATEMENTS":37,"END_STATEMENTS":38,"program":39,"EOF":40,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"STRING",6:"IDENTIFIER",7:"+",8:"-",9:"*",10:"/",11:"^",12:"(",13:")",14:"NUM",16:"=",18:"PRINT",20:"READ",22:";",24:",",26:"NUMBER",27:"WORD",29:"USE_AS",31:"NEWLINE",33:"BEGIN_VARS",34:"END_VARS",37:"BEGIN_STATEMENTS",38:"END_STATEMENTS",40:"EOF"},
+productions_: [0,[3,1],[3,1],[3,1],[4,3],[4,3],[4,3],[4,3],[4,3],[4,2],[4,3],[4,1],[15,3],[17,2],[19,2],[21,2],[21,2],[21,2],[23,1],[23,3],[25,1],[25,1],[28,3],[30,1],[30,3],[32,3],[32,5],[35,1],[35,2],[36,3],[36,5],[39,2],[39,2]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 1:
-return $$[$0];
-break;
 case 4:
 this.$ = $$[$0-2]+$$[$0];
 break;
@@ -110,10 +107,19 @@ break;
 case 11:
 this.$ = Number(yytext);
 break;
+case 13:
+print($$[$0])
+break;
+case 14:
+read($$[$0])
+break;
+case 22:
+process_var($$[$0-2], $$[$0])
+break;
 }
 },
-table: [{37:1,38:[1,2]},{1:[3],35:[1,3]},{31:[1,4]},o($V0,[2,32]),{6:$V1,15:10,17:8,18:$V2,19:9,20:$V3,21:7,36:6,39:[1,5]},o($V0,[2,30]),{31:[1,14]},{31:[1,15]},{22:[1,16]},{22:[1,17]},{22:[1,18]},{6:[1,19]},{6:[1,20]},{16:[1,21]},{39:[1,22]},{6:$V1,15:10,17:8,18:$V2,19:9,20:$V3,21:7,36:23},{31:[2,15]},{31:[2,16]},{31:[2,17]},{22:[2,13]},{22:[2,14]},{3:24,4:25,5:[1,26],6:[1,27],8:$V4,12:$V5,14:$V6},o($V0,[2,31]),{31:[2,29]},{22:[2,12]},{7:$V7,8:$V8,9:$V9,10:$Va,11:$V0,22:[2,1]},{22:[2,2]},{22:[2,3]},{4:36,8:$V4,12:$V5,14:$V6},{4:37,8:$V4,12:$V5,14:$V6},o($Vb,[2,11]),{4:38,8:$V4,12:$V5,14:$V6},{4:39,8:$V4,12:$V5,14:$V6},{4:40,8:$V4,12:$V5,14:$V6},{4:41,8:$V4,12:$V5,14:$V6},{4:42,8:$V4,12:$V5,14:$V6},o($Vb,[2,9]),{7:$V7,8:$V8,9:$V9,10:$Va,11:$V0,13:[1,43]},o($Vc,[2,4],{9:$V9,10:$Va,11:$V0}),o($Vc,[2,5],{9:$V9,10:$Va,11:$V0}),o($Vd,[2,6],{11:$V0}),o($Vd,[2,7],{11:$V0}),o($Vb,[2,8]),o($Vb,[2,10])],
-defaultActions: {16:[2,15],17:[2,16],18:[2,17],19:[2,13],20:[2,14],23:[2,29],24:[2,12],26:[2,2],27:[2,3]},
+table: [{32:2,33:[1,3],39:1},{1:[3],40:[1,4]},{36:5,37:[1,6]},{31:[1,7]},o($V0,[2,32]),o($V0,[2,31]),{31:[1,8]},{6:$V1,23:12,28:11,30:10,34:[1,9]},{6:$V2,15:19,17:17,18:$V3,19:18,20:$V4,21:16,35:15,38:[1,14]},{37:[2,25]},{31:[1,23]},{31:[2,23]},{29:[1,24]},{24:[1,25],29:[2,18]},o($V0,[2,29]),{31:[1,26]},{6:$V2,15:19,17:17,18:$V3,19:18,20:$V4,21:16,31:[2,27],35:27},{22:[1,28]},{22:[1,29]},{22:[1,30]},{6:[1,31]},{6:[1,32]},{16:[1,33]},{6:$V1,23:12,28:35,34:[1,34]},{25:36,26:[1,37],27:[1,38]},{6:$V1,23:39},{38:$V0},{31:[2,28]},o($V5,[2,15]),o($V5,[2,16]),o($V5,[2,17]),{22:[2,13]},{22:[2,14]},{3:41,4:42,5:[1,43],6:[1,44],8:$V6,12:$V7,14:$V8},{37:[2,26]},{31:[2,24]},{31:[2,22]},{31:[2,20]},{31:[2,21]},{29:[2,19]},o($V0,[2,30]),{22:[2,12]},{7:$V9,8:$Va,9:$Vb,10:$Vc,11:$Vd,22:[2,1]},{22:[2,2]},{22:[2,3]},{4:53,8:$V6,12:$V7,14:$V8},{4:54,8:$V6,12:$V7,14:$V8},o($Ve,[2,11]),{4:55,8:$V6,12:$V7,14:$V8},{4:56,8:$V6,12:$V7,14:$V8},{4:57,8:$V6,12:$V7,14:$V8},{4:58,8:$V6,12:$V7,14:$V8},{4:59,8:$V6,12:$V7,14:$V8},o($Ve,[2,9]),{7:$V9,8:$Va,9:$Vb,10:$Vc,11:$Vd,13:[1,60]},o($Vf,[2,4],{9:$Vb,10:$Vc,11:$Vd}),o($Vf,[2,5],{9:$Vb,10:$Vc,11:$Vd}),o($Vg,[2,6],{11:$Vd}),o($Vg,[2,7],{11:$Vd}),o($Ve,[2,8]),o($Ve,[2,10])],
+defaultActions: {9:[2,25],11:[2,23],27:[2,28],31:[2,13],32:[2,14],34:[2,26],35:[2,24],36:[2,22],37:[2,20],38:[2,21],39:[2,19],41:[2,12],43:[2,2],44:[2,3]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -258,7 +264,55 @@ parse: function parse(input) {
     }
     return true;
 }};
-/* generated by jison-lex 0.3.4 */
+
+    function Variable(id,type) {
+        this.id = id;
+        this.type = type;
+        this.value = null;
+
+        this.setValue = function(value) {
+            this.value = value;
+        }
+    }
+
+    variables = []
+
+var process_var = function(id, type) {
+    if (isAlreadyDeclared(id)){
+        throw new Error( id +" variable already declared");
+    } else {
+        variables.push(new Variable(id, type));
+    }
+
+    console.log(variables);
+}
+
+var print = function(id) {
+    variable = getVar(id);
+    if (variable === null) {
+        throw new Error( id +" variable has not been declared");
+    }
+    $('#out').append(getVar(id).value);
+}
+var read = function(id) {
+    variable = getVar(id);
+    if (variable === null) {
+        throw new Error( id +" variable has not been declared");
+    }
+    variable.value = prompt("Enter value for variable " + id + ": ");
+}
+var isAlreadyDeclared = function(id) {
+    return getVar(id) !== null
+}
+
+var getVar = function(id){
+    for (i in variables){
+        if (variables[i].id === id) {
+            return variables[i]
+        }
+    }
+    return null
+}/* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
 
@@ -600,9 +654,9 @@ case 5:return 33
 break;
 case 6:return 34
 break;
-case 7:return 38
+case 7:return 37
 break;
-case 8:return 39
+case 8:return 38
 break;
 case 9:return 20
 break;
@@ -634,9 +688,9 @@ case 22:return 16
 break;
 case 23:return 22
 break;
-case 24:return 35
+case 24:variables = []
 break;
-case 25:return 'INVALID'
+case 25:variables = []
 break;
 }
 },
