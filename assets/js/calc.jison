@@ -144,8 +144,6 @@ var process_var = function(identifier, dtype) {
     } else {
         variables.push(new Variable(identifier, dtype));
     }
-
-    console.log(variables);
 }
 
 var print = function(identifier) {
@@ -159,7 +157,6 @@ var print = function(identifier) {
         var val = variable.val
         while (val instanceof Variable) {
             val = val.val
-            console.log(val);
         }
         $('#out').append(val);
     }
@@ -213,9 +210,7 @@ var assign = function(identifier, val) {
             if (variable.dtype == 'number') {
                 throw new Error("Incompatible data type. Storing string to a number.")
             }
-            console.log(val);
             val = val.substring(1, val.length - 1);
-            console.log(val);
             variable.val = val;            
         }
     }
