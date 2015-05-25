@@ -72,12 +72,12 @@
   }
 */
 var parser = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,40],$V1=[1,13],$V2=[1,22],$V3=[1,20],$V4=[1,21],$V5=[6,18,20,31],$V6=[1,45],$V7=[1,46],$V8=[1,47],$V9=[1,48],$Va=[1,49],$Vb=[1,50],$Vc=[1,51],$Vd=[1,52],$Ve=[7,8,9,10,11,13,22],$Vf=[7,8,13,22],$Vg=[7,8,9,10,13,22];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,39],$V1=[30,36],$V2=[1,15],$V3=[1,30,39],$V4=[1,24],$V5=[1,22],$V6=[1,23],$V7=[6,17,19,30],$V8=[1,47],$V9=[1,48],$Va=[1,49],$Vb=[1,50],$Vc=[1,51],$Vd=[1,52],$Ve=[7,8,9,10,12,21],$Vf=[7,8,12,21];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"expression":3,"e":4,"STRING":5,"IDENTIFIER":6,"+":7,"-":8,"*":9,"/":10,"^":11,"(":12,")":13,"NUM":14,"assignment":15,"=":16,"print":17,"PRINT":18,"read":19,"READ":20,"statement":21,";":22,"identifier_list":23,",":24,"dtype":25,"NUMBER":26,"WORD":27,"variable_declaration":28,"USE_AS":29,"vars":30,"NEWLINE":31,"var_block":32,"BEGIN_VARS":33,"END_VARS":34,"statements":35,"prog_block":36,"BEGIN_STATEMENTS":37,"END_STATEMENTS":38,"program":39,"EOF":40,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"STRING",6:"IDENTIFIER",7:"+",8:"-",9:"*",10:"/",11:"^",12:"(",13:")",14:"NUM",16:"=",18:"PRINT",20:"READ",22:";",24:",",26:"NUMBER",27:"WORD",29:"USE_AS",31:"NEWLINE",33:"BEGIN_VARS",34:"END_VARS",37:"BEGIN_STATEMENTS",38:"END_STATEMENTS",40:"EOF"},
-productions_: [0,[3,1],[3,1],[3,1],[4,3],[4,3],[4,3],[4,3],[4,3],[4,2],[4,3],[4,1],[15,3],[17,2],[19,2],[21,2],[21,2],[21,2],[23,1],[23,3],[25,1],[25,1],[28,3],[30,1],[30,3],[32,3],[32,5],[35,1],[35,2],[36,3],[36,5],[39,2],[39,2]],
+symbols_: {"error":2,"expression":3,"e":4,"STRING":5,"IDENTIFIER":6,"+":7,"-":8,"*":9,"/":10,"(":11,")":12,"NUM":13,"assignment":14,"=":15,"print":16,"PRINT":17,"read":18,"READ":19,"statement":20,";":21,"identifier_list":22,",":23,"dtype":24,"NUMBER":25,"WORD":26,"variable_declaration":27,"USE_AS":28,"vars":29,"NEWLINE":30,"var_block":31,"BEGIN_VARS":32,"END_VARS":33,"statements":34,"prog_block":35,"BEGIN_STATEMENTS":36,"END_STATEMENTS":37,"program":38,"EOF":39,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"STRING",6:"IDENTIFIER",7:"+",8:"-",9:"*",10:"/",11:"(",12:")",13:"NUM",15:"=",17:"PRINT",19:"READ",21:";",23:",",25:"NUMBER",26:"WORD",28:"USE_AS",30:"NEWLINE",32:"BEGIN_VARS",33:"END_VARS",36:"BEGIN_STATEMENTS",37:"END_STATEMENTS",39:"EOF"},
+productions_: [0,[3,1],[3,1],[3,1],[4,3],[4,3],[4,3],[4,3],[4,3],[4,1],[14,3],[16,2],[18,2],[20,2],[20,2],[20,2],[22,1],[22,3],[24,1],[24,1],[27,3],[29,1],[29,3],[31,3],[31,5],[31,2],[34,1],[34,2],[35,3],[35,5],[35,2],[38,2],[38,2]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -96,30 +96,27 @@ case 7:
 this.$ = $$[$0-2]/$$[$0];
 break;
 case 8:
-this.$ = Math.pow($$[$0-2], $$[$0]);
-break;
-case 9:
-this.$ = -$$[$0];
-break;
-case 10:
 this.$ = $$[$0-1];
 break;
-case 11:
+case 9:
 this.$ = Number(yytext);
 break;
-case 13:
+case 10:
+assign($$[$0-2], $$[$0])
+break;
+case 11:
 print($$[$0])
 break;
-case 14:
+case 12:
 read($$[$0])
 break;
-case 22:
+case 20:
 process_var($$[$0-2], $$[$0])
 break;
 }
 },
-table: [{32:2,33:[1,3],39:1},{1:[3],40:[1,4]},{36:5,37:[1,6]},{31:[1,7]},o($V0,[2,32]),o($V0,[2,31]),{31:[1,8]},{6:$V1,23:12,28:11,30:10,34:[1,9]},{6:$V2,15:19,17:17,18:$V3,19:18,20:$V4,21:16,35:15,38:[1,14]},{37:[2,25]},{31:[1,23]},{31:[2,23]},{29:[1,24]},{24:[1,25],29:[2,18]},o($V0,[2,29]),{31:[1,26]},{6:$V2,15:19,17:17,18:$V3,19:18,20:$V4,21:16,31:[2,27],35:27},{22:[1,28]},{22:[1,29]},{22:[1,30]},{6:[1,31]},{6:[1,32]},{16:[1,33]},{6:$V1,23:12,28:35,34:[1,34]},{25:36,26:[1,37],27:[1,38]},{6:$V1,23:39},{38:$V0},{31:[2,28]},o($V5,[2,15]),o($V5,[2,16]),o($V5,[2,17]),{22:[2,13]},{22:[2,14]},{3:41,4:42,5:[1,43],6:[1,44],8:$V6,12:$V7,14:$V8},{37:[2,26]},{31:[2,24]},{31:[2,22]},{31:[2,20]},{31:[2,21]},{29:[2,19]},o($V0,[2,30]),{22:[2,12]},{7:$V9,8:$Va,9:$Vb,10:$Vc,11:$Vd,22:[2,1]},{22:[2,2]},{22:[2,3]},{4:53,8:$V6,12:$V7,14:$V8},{4:54,8:$V6,12:$V7,14:$V8},o($Ve,[2,11]),{4:55,8:$V6,12:$V7,14:$V8},{4:56,8:$V6,12:$V7,14:$V8},{4:57,8:$V6,12:$V7,14:$V8},{4:58,8:$V6,12:$V7,14:$V8},{4:59,8:$V6,12:$V7,14:$V8},o($Ve,[2,9]),{7:$V9,8:$Va,9:$Vb,10:$Vc,11:$Vd,13:[1,60]},o($Vf,[2,4],{9:$Vb,10:$Vc,11:$Vd}),o($Vf,[2,5],{9:$Vb,10:$Vc,11:$Vd}),o($Vg,[2,6],{11:$Vd}),o($Vg,[2,7],{11:$Vd}),o($Ve,[2,8]),o($Ve,[2,10])],
-defaultActions: {9:[2,25],11:[2,23],27:[2,28],31:[2,13],32:[2,14],34:[2,26],35:[2,24],36:[2,22],37:[2,20],38:[2,21],39:[2,19],41:[2,12],43:[2,2],44:[2,3]},
+table: [{31:2,32:[1,3],38:1},{1:[3],39:[1,4]},{30:[1,6],35:5,36:[1,7]},{30:[1,8]},o($V0,[2,32]),o($V0,[2,31],{30:[1,9]}),o($V1,[2,25]),{30:[1,10]},{6:$V2,22:14,27:13,29:12,33:[1,11]},o($V3,[2,30]),{6:$V4,14:21,16:19,17:$V5,18:20,19:$V6,20:18,34:17,37:[1,16]},o($V1,[2,23]),{30:[1,25]},{30:[2,21]},{28:[1,26]},{23:[1,27],28:[2,16]},o($V3,[2,28]),{30:[1,28]},{6:$V4,14:21,16:19,17:$V5,18:20,19:$V6,20:18,30:[2,26],34:29},{21:[1,30]},{21:[1,31]},{21:[1,32]},{6:[1,33]},{6:[1,34]},{15:[1,35]},{6:$V2,22:14,27:37,33:[1,36]},{24:38,25:$V0,26:[1,40]},{6:$V2,22:41},{37:[1,42]},{30:[2,27]},o($V7,[2,13]),o($V7,[2,14]),o($V7,[2,15]),{21:[2,11]},{21:[2,12]},{3:43,4:44,5:[1,45],6:[1,46],11:$V8,13:$V9},o($V1,[2,24]),{30:[2,22]},{30:[2,20]},{30:[2,18]},{30:[2,19]},{28:[2,17]},o($V3,[2,29]),{21:[2,10]},{7:$Va,8:$Vb,9:$Vc,10:$Vd,21:[2,1]},{21:[2,2]},{21:[2,3]},{4:53,11:$V8,13:$V9},o($Ve,[2,9]),{4:54,11:$V8,13:$V9},{4:55,11:$V8,13:$V9},{4:56,11:$V8,13:$V9},{4:57,11:$V8,13:$V9},{7:$Va,8:$Vb,9:$Vc,10:$Vd,12:[1,58]},o($Vf,[2,4],{9:$Vc,10:$Vd}),o($Vf,[2,5],{9:$Vc,10:$Vd}),o($Ve,[2,6]),o($Ve,[2,7]),o($Ve,[2,8])],
+defaultActions: {13:[2,21],29:[2,27],33:[2,11],34:[2,12],37:[2,22],38:[2,20],39:[2,18],40:[2,19],41:[2,17],43:[2,10],45:[2,2],46:[2,3]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -265,53 +262,102 @@ parse: function parse(input) {
     return true;
 }};
 
-    function Variable(id,type) {
-        this.id = id;
-        this.type = type;
-        this.value = null;
+function Variable(identifier,dtype) {
+    this.identifier = identifier;
+    this.dtype = dtype;
+    this.val = null;
+}
 
-        this.setValue = function(value) {
-            this.value = value;
-        }
-    }
+variables = []
 
-    variables = []
-
-var process_var = function(id, type) {
-    if (isAlreadyDeclared(id)){
-        throw new Error( id +" variable already declared");
+var process_var = function(identifier, dtype) {
+    if (isAlreadyDeclared(identifier)){
+        throw new Error( identifier +" variable already declared");
     } else {
-        variables.push(new Variable(id, type));
+        variables.push(new Variable(identifier, dtype));
     }
 
     console.log(variables);
 }
 
-var print = function(id) {
-    variable = getVar(id);
+var print = function(identifier) {
+    var variable = getVar(identifier);
     if (variable === null) {
-        throw new Error( id +" variable has not been declared");
+        throw new Error( identifier +" variable has not been declared");
     }
-    $('#out').append(getVar(id).value);
+    if (variable.val === null){
+        $('#out').append('<span class = "gray">null</span>');
+    } else {
+        var val = variable.val
+        while (val instanceof Variable) {
+            val = val.val
+            console.log(val);
+        }
+        $('#out').append(val);
+    }
 }
-var read = function(id) {
-    variable = getVar(id);
+var read = function(identifier) {
+    var variable = getVar(identifier);
     if (variable === null) {
-        throw new Error( id +" variable has not been declared");
+        throw new Error( identifier +" variable has not been declared");
     }
-    variable.value = prompt("Enter value for variable " + id + ": ");
-}
-var isAlreadyDeclared = function(id) {
-    return getVar(id) !== null
-}
-
-var getVar = function(id){
-    for (i in variables){
-        if (variables[i].id === id) {
-            return variables[i]
+    var input = prompt("Enter value for variable: ");
+    if (variable.dtype === 'number') {
+        input = +input;
+        if (isNaN(input)){
+            throw new Error("Failure to parse input into a number.");
         }
     }
-    return null
+    variable.val = input;
+}
+var isAlreadyDeclared = function(identifier) {
+    return getVar(identifier) !== null;
+}
+
+var getVar = function(identifier){
+    for (i in variables){
+        if (variables[i].identifier === identifier) {
+            return variables[i];
+        }
+    }
+    return null;
+}
+
+var assign = function(identifier, val) {
+    var variable = getVar(identifier);
+    if (variable === null) {
+        throw new Error( identifier +" variable has not been declared");
+    }
+    if (typeof val === 'string'){
+        if (val.match(/^[a-zA-Z_]([a-zA-Z_]|[0-9])*$/g) !== null) {
+            //identifier
+            identifier = getVar(val);
+            if (identifier === null) {
+                throw new Error(val +" variable has not been declared");
+            } else {
+                if (variable.dtype !== identifier.dtype){
+                    throw new Error("Incompatible data type. Storing " +identifier.dtype+" to a "+ variable.dtype+".")
+                } else {
+                    variable.val = identifier;
+                }
+            }
+        } else if (val.match(/^[a-zA-Z_]?\"(\\.|[^\\"])*\"$/g) !== null) {
+            if (variable.dtype == 'number') {
+                throw new Error("Incompatible data type. Storing string to a number.")
+            }
+            console.log(val);
+            val = val.substring(1, val.length - 1);
+            console.log(val);
+            variable.val = val;            
+        }
+    }
+    if (typeof val === 'number'){
+        if (variable.dtype == 'word') {
+            throw new Error("Incompatible data type. Storing number to a word.")
+        }   
+
+        variable.val = val;
+    }
 }/* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
@@ -640,35 +686,35 @@ options: {},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
-case 0:return 31
+case 0:return 30
 break;
 case 1:/* skip whitespace */
 break;
-case 2:return 26
+case 2:return 25
 break;
-case 3:return 27
+case 3:return 26
 break;
-case 4:return 29
+case 4:return 28
 break;
-case 5:return 33
+case 5:return 32
 break;
-case 6:return 34
+case 6:return 33
 break;
-case 7:return 37
+case 7:return 36
 break;
-case 8:return 38
+case 8:return 37
 break;
-case 9:return 20
+case 9:return 19
 break;
-case 10:return 18
+case 10:return 17
 break;
 case 11:return 5
 break;
-case 12:return 14
+case 12:return 13
 break;
 case 13:return 6
 break;
-case 14:return 24
+case 14:return 23
 break;
 case 15:return 9
 break;
@@ -680,13 +726,13 @@ case 18:return 7
 break;
 case 19:return '%'
 break;
-case 20:return 12
+case 20:return 11
 break;
-case 21:return 13
+case 21:return 12
 break;
-case 22:return 16
+case 22:return 15
 break;
-case 23:return 22
+case 23:return 21
 break;
 case 24:variables = []
 break;

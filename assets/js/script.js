@@ -42,17 +42,26 @@
                 $('.open-menu').show();
             }
         });
+        $('#input').keyup(function() {
+            if($(this).val() != '') {
+                $(".run").removeAttr('disabled');
+            } else {
+                $(".run").attr('disabled','disabled');
+            }
+
+         });
         $(".run").click(function(){
-            $('#out').html('')
+            variables = []
+            $('#out').html('<p class="gray">Run:</p>')
             try{
                 parser.parse($('#input').val());
                 $('#out').removeClass('bad');
             } catch(e) {
-                variables = []
                 $('#out').addClass('bad');
-                $('#out').html(e.verbose);
+                $('#out').append(e.verbose);
                 console.log(e);
             }
+            $('#out').append('<p class="gray">Done.</p>')
         });
     });
 // });

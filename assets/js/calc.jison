@@ -1,16 +1,12 @@
 /* lexical grammar */
 %{
-    function Variable(id,type) {
-        this.id = id;
-        this.type = type;
-        this.value = null;
+function Variable(identifier,dtype) {
+    this.identifier = identifier;
+    this.dtype = dtype;
+    this.val = null;
+}
 
-        this.setValue = function(value) {
-            this.value = value;
-        }
-    }
-
-    variables = []
+variables = []
 %}
 
 %lex
@@ -71,10 +67,6 @@ e
         {$$ = $1*$3;}
     | e '/' e
         {$$ = $1/$3;}
-    | e '^' e
-        {$$ = Math.pow($1, $3);}
-    | '-' e %prec UMINUS
-        {$$ = -$2;}
     | '(' e ')'
         {$$ = $2;}
     | NUM
@@ -83,7 +75,7 @@ e
 
 assignment
     : IDENTIFIER '=' expression
-
+        {assign($1, $3)}
     ;
 
 print
@@ -125,6 +117,7 @@ vars
 var_block
     : BEGIN_VARS NEWLINE END_VARS
     | BEGIN_VARS NEWLINE vars NEWLINE END_VARS
+    | var_block NEWLINE
     ;
 
 statements
@@ -136,6 +129,7 @@ statements
 prog_block
     : BEGIN_STATEMENTS NEWLINE END_STATEMENTS
     | BEGIN_STATEMENTS NEWLINE statements NEWLINE END_STATEMENTS
+    | prog_block NEWLINE
     ;
 
 program
@@ -144,39 +138,92 @@ program
     ;
 
 %%
-var process_var = function(id, type) {
-    if (isAlreadyDeclared(id)){
-        throw new Error( id +" variable already declared");
+var process_var = function(identifier, dtype) {
+    if (isAlreadyDeclared(identifier)){
+        throw new Error( identifier +" variable already declared");
     } else {
-        variables.push(new Variable(id, type));
+        variables.push(new Variable(identifier, dtype));
     }
 
     console.log(variables);
 }
 
-var print = function(id) {
-    variable = getVar(id);
+var print = function(identifier) {
+    var variable = getVar(identifier);
     if (variable === null) {
-        throw new Error( id +" variable has not been declared");
+        throw new Error( identifier +" variable has not been declared");
     }
-    $('#out').append(getVar(id).value);
+    if (variable.val === null){
+        $('#out').append('<span class = "gray">null</span>');
+    } else {
+        var val = variable.val
+        while (val instanceof Variable) {
+            val = val.val
+            console.log(val);
+        }
+        $('#out').append(val);
+    }
 }
-var read = function(id) {
-    variable = getVar(id);
+var read = function(identifier) {
+    var variable = getVar(identifier);
     if (variable === null) {
-        throw new Error( id +" variable has not been declared");
+        throw new Error( identifier +" variable has not been declared");
     }
-    variable.value = prompt("Enter value for variable " + id + ": ");
-}
-var isAlreadyDeclared = function(id) {
-    return getVar(id) !== null
-}
-
-var getVar = function(id){
-    for (i in variables){
-        if (variables[i].id === id) {
-            return variables[i]
+    var input = prompt("Enter value for variable: ");
+    if (variable.dtype === 'number') {
+        input = +input;
+        if (isNaN(input)){
+            throw new Error("Failure to parse input into a number.");
         }
     }
-    return null
+    variable.val = input;
+}
+var isAlreadyDeclared = function(identifier) {
+    return getVar(identifier) !== null;
+}
+
+var getVar = function(identifier){
+    for (i in variables){
+        if (variables[i].identifier === identifier) {
+            return variables[i];
+        }
+    }
+    return null;
+}
+
+var assign = function(identifier, val) {
+    var variable = getVar(identifier);
+    if (variable === null) {
+        throw new Error( identifier +" variable has not been declared");
+    }
+    if (typeof val === 'string'){
+        if (val.match(/^[a-zA-Z_]([a-zA-Z_]|[0-9])*$/g) !== null) {
+            //identifier
+            identifier = getVar(val);
+            if (identifier === null) {
+                throw new Error(val +" variable has not been declared");
+            } else {
+                if (variable.dtype !== identifier.dtype){
+                    throw new Error("Incompatible data type. Storing " +identifier.dtype+" to a "+ variable.dtype+".")
+                } else {
+                    variable.val = identifier;
+                }
+            }
+        } else if (val.match(/^[a-zA-Z_]?\"(\\.|[^\\"])*\"$/g) !== null) {
+            if (variable.dtype == 'number') {
+                throw new Error("Incompatible data type. Storing string to a number.")
+            }
+            console.log(val);
+            val = val.substring(1, val.length - 1);
+            console.log(val);
+            variable.val = val;            
+        }
+    }
+    if (typeof val === 'number'){
+        if (variable.dtype == 'word') {
+            throw new Error("Incompatible data type. Storing number to a word.")
+        }   
+
+        variable.val = val;
+    }
 }
