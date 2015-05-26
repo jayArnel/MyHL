@@ -28,20 +28,21 @@
             $(this).hide();
             $('.open-menu').show();
         });
+        var open_menu = function(){
 
-        $('.main-content').click(function() {
-            if($(this).css('left') == '300px') {
-                console.log('slide please');
-                $('.menu').animate({
-                  left: "-225px"
-                }, 200);
-                $(this).animate({
-                  left: "0px"
-                }, 200);
-                $('.close-menu').hide();
-                $('.open-menu').show();
-            }
-        });
+        }
+        // $('.main-content').click(function() {
+        //     if($(this).css('left') == '225px') {
+        //         $('.menu').animate({
+        //           left: "-225px"
+        //         }, 200);
+        //         $(this).animate({
+        //           left: "0px"
+        //         }, 200);
+        //         $('.close-menu').hide();
+        //         $('.open-menu').show();
+        //     }
+        // });
         $('#input').keyup(function() {
             if($(this).val() != '') {
                 $(".run").removeAttr('disabled');
@@ -51,7 +52,6 @@
 
          });
         $(".run").click(function(){
-            
             variables = []
             $('#out').html('<p class="gray">Run:</p>')
             try{
@@ -59,10 +59,54 @@
                 $('#out').removeClass('bad');
             } catch(e) {
                 $('#out').addClass('bad');
-                $('#out').html(e.verbose);
+                $('#out').append(e);
                 console.log(e);
             }
             $('#out').append('<p class="gray">Done.</p>')
         });
+
+        $(document).keydown(function(e) {
+            console.log('key code is: ' + e.which + ' ' + (e.ctrlKey ? 'Ctrl' : '') + ' ' +
+                    (e.shiftKey ? 'Shift' : '') + ' ' + (e.altKey ? 'Alt' : ''));
+            if (e.ctrlKey && e.which == 77) { 
+                if($('.close-menu').is(":visible")) {
+                    $('.menu').animate({
+                      left: "-25px"
+                    }, 200);
+                    $('.main-content').animate({
+                      left: "0px"
+                    }, 200);
+                    $('.close-menu').hide();
+                    $('.open-menu').show();
+                } else {
+                    $('.menu').animate({
+                      left: "0px"
+                    }, 200);
+
+                    $('.main-content').animate({
+                      left: "225px"
+                    }, 200);
+
+                    $('.open-menu').hide();
+                    $('.close-menu').show();
+                }
+            }
+            if (e.which == 113) { 
+                if ($('#input').val().trim().length > 0) {
+                    variables = []
+                    $('#out').html('<p class="gray">Run:</p>')
+                    try{
+                        parser.parse($('#input').val());
+                        $('#out').removeClass('bad');
+                    } catch(e) {
+                        $('#out').addClass('bad');
+                        $('#out').append(e.verbose);
+                        console.log(e);
+                    }
+                    $('#out').append('<p class="gray">Done.</p>')
+                }
+            }
+        });
+
     });
 // });
