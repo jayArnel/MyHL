@@ -140,3 +140,13 @@ body, .site-wrapper{
 .gray{
   color: #999;
 }
+
+.modal-content {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.modal-content * {
+  margin-bottom: 10px;
+}
+
