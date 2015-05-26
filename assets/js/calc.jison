@@ -18,6 +18,9 @@ function Variable(identifier,dtype) {
         if (this.val instanceof Variable){
             return this.val.getVal();
         } else {
+            if (this.val === null){
+                throw new Error("Null Reference Error: " + this.identifier +" is null.");
+            }
             return this.val;
         }
     }
@@ -75,28 +78,71 @@ expression
 
 e
     : e '+' e
-        {checkOperation($1, $3);$$ = $1+$3;}
+        {
+            var args = checkOperation($1, $3);
+            arg1 = args[0]
+            arg2 = args[1]
+            $$ = arg1+arg2;
+            console.log(arg1 + " " + arg2);
+        }
     | e '-' e
-        {checkOperation($1, $3);$$ = $1-$3;}
+        {
+            var args = checkOperation($1, $3);
+            arg1 = args[0];
+            arg2 = args[1];
+            $$ = arg1-arg2;
+        }
     | e '*' e
-        {checkOperation($1, $3);$$ = $1*$3;}
+        {
+            var args = checkOperation($1, $3);
+            arg1 = args[0];
+            arg2 = args[1];
+            $$ = arg1*arg2;
+        }
     | e '/' e
-        {checkOperation($1, $3);$$ = $1/$3;}
+        {
+            var args = checkOperation($1, $3);
+            arg1 = args[0];
+            arg2 = args[1];
+            $$ = arg1/arg2;
+        }
     | e '%' e
-        {checkOperation($1, $3);$$ = $1%$3;}
+        {
+            var args = checkOperation($1, $3);
+            arg1 = args[0];
+            arg2 = args[1];
+            $$ = arg1%arg2;
+        }
     | '(' e ')'
-        {$$ = $2;}
+        {
+            if (isNaN()){
+                throw new Error('Operation Error: Word in parentheses.')  
+            } else {
+                $$ = $2;
+            }
+        }
     | NUM
         {$$ = Number(yytext);}
     | STRING
-        {$$ = $1.substring(1, $1.length - 1)}
+        {
+            var string = $1;
+            var variable = getVar(string);
+            if (variable === null) {
+                var val = string.substring(1, string.length - 1)
+                variable = new Variable(string,'word');
+                variable.setVal(val);
+                variables.push(variable);
+            }
+            $$ = variable
+            console.log(variables);
+        }
     | IDENTIFIER
         {
             var variable = getVar($1);
             if (variable === null) {
                 throw new Error( $1 +" variable has not been declared");
             }
-            $$ = variable.getVal()
+            $$ = variable
         }
     ;
 
@@ -107,7 +153,9 @@ assignment
 
 print
     : PRINT expression
-        {$('#out').append($2);}
+        {
+            print($2);
+        }
     ;
 
 read
@@ -181,19 +229,25 @@ var process_var = function(identifiers, dtype) {
 }
 
 var read = function(identifier) {
-    console.log(variables);
     var variable = getVar(identifier);
     if (variable === null) {
         throw new Error( identifier +" variable has not been declared");
     }
-    var input = prompt("Enter value for variable"+identifier+": ");
+    var input = prompt("Enter value for variable `"+identifier+"`: ");
     if (variable.dtype === 'number') {
-        input = +input;
+        input = parseInt(input);
         if (isNaN(input)){
             throw new Error("Failure to parse input into a number.");
         }
     }
     variable.setVal(input);
+    console.log(variable);
+}
+var print = function(expression){
+    if (expression instanceof Variable){
+        expression = expression.getVal();
+    }
+    $('#out').append(expression);
 }
 var isAlreadyDeclared = function(identifier) {
     return getVar(identifier) !== null;
@@ -244,9 +298,22 @@ var assign = function(identifier, val) {
 }
 
 var checkOperation = function(arg1, arg2) {
-    if (isNaN(Number(arg1)) && !isNaN(Number(arg2))){
-        throw new Error("Unsupported operation: `word` and `number`.");
-    } else if (isNaN(Number(arg2)) && !isNaN(Number(arg1))) {
-        throw new Error("Unsupported operation: `number` and `word`.");
+    if (arg1 instanceof Variable && arg2 instanceof Variable) {
+        if (arg1.dtype != arg2.dtype) {
+            throw new Error("Operation Error:"+ arg1.dtype +" and " +arg2.dtype+".")
+        } else {
+            arg1 = arg1.getVal();
+            arg2 = arg2.getVal();
+        }
+    } else if (arg1 instanceof Variable === false){
+        if (isNaN(arg2) && arg2.dtype !== 'number') {
+            throw new Error("Operation Error: `number` and `word` .")
+        }
+
+    } else if (arg2 instanceof Variable === false){
+        if (isNaN(arg1) && arg1.dtype !== 'number') {
+            throw new Error("Operation Error: `word` and `number`.")
+        }
     }
+    return [arg1, arg2];
 }

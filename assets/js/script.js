@@ -51,6 +51,7 @@
 
          });
         $(".run").click(function(){
+            
             variables = []
             $('#out').html('<p class="gray">Run:</p>')
             try{
