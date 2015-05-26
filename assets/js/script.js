@@ -59,8 +59,7 @@
                 $('#out').removeClass('bad');
             } catch(e) {
                 $('#out').addClass('bad');
-                $('#out').append(e);
-                console.log(e);
+                $('#out').append(e.verbose);
             }
             $('#out').append('<p class="gray">Done.</p>')
         });
@@ -101,7 +100,6 @@
                     } catch(e) {
                         $('#out').addClass('bad');
                         $('#out').append(e.verbose);
-                        console.log(e);
                     }
                     $('#out').append('<p class="gray">Done.</p>')
                 }
