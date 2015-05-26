@@ -309,10 +309,15 @@ var checkOperation = function(arg1, arg2) {
         if (isNaN(arg2) && arg2.dtype !== 'number') {
             throw new Error("Operation Error: `number` and `word` .")
         }
-
+        if (arg2 instanceof Variable) {
+            arg2 = arg2.getVal();
+        }
     } else if (arg2 instanceof Variable === false){
         if (isNaN(arg1) && arg1.dtype !== 'number') {
             throw new Error("Operation Error: `word` and `number`.")
+        }
+        if (arg1 instanceof Variable) {
+            arg1 = arg1.getVal();
         }
     }
     return [arg1, arg2];
