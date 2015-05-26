@@ -793,58 +793,60 @@ case 0:return 31
 break;
 case 1:/* skip whitespace */
 break;
-case 2:return 26
+case 2:/* skip comments */
 break;
-case 3:return 27
+case 3:return 26
 break;
-case 4:return 29
+case 4:return 27
 break;
-case 5:return 33
+case 5:return 29
 break;
-case 6:return 34
+case 6:return 33
 break;
-case 7:return 37
+case 7:return 34
 break;
-case 8:return 38
+case 8:return 37
 break;
-case 9:return 20
+case 9:return 38
 break;
-case 10:return 18
+case 10:return 20
 break;
-case 11:return 13
+case 11:return 18
 break;
-case 12:return 12
+case 12:return 13
 break;
-case 13:return 14
+case 13:return 12
 break;
-case 14:return 24
+case 14:return 14
 break;
-case 15:return 7
+case 15:return 24
 break;
-case 16:return 8
+case 16:return 7
 break;
-case 17:return 6
+case 17:return 8
 break;
-case 18:return 5
+case 18:return 6
 break;
-case 19:return 9
+case 19:return 5
 break;
-case 20:return 10
+case 20:return 9
 break;
-case 21:return 11
+case 21:return 10
 break;
-case 22:return 16
+case 22:return 11
 break;
-case 23:return 22
+case 23:return 16
 break;
-case 24:variables = []
+case 24:return 22
 break;
 case 25:variables = []
 break;
+case 26:variables = []
+break;
 }
 },
-rules: [/^(?:\s*\n+)/,/^(?:\s+)/,/^(?:number\b)/,/^(?:word\b)/,/^(?:use as\b)/,/^(?:begin vars\b)/,/^(?:end vars\b)/,/^(?:begin statements\b)/,/^(?:end statements\b)/,/^(?:read\b)/,/^(?:print\b)/,/^(?:[a-zA-Z_]?"(\\.|[^\\"])*")/,/^(?:[0-9]+(\.[0-9]+)?\b)/,/^(?:[a-zA-Z_]([a-zA-Z_]|[0-9])*)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:%)/,/^(?:\()/,/^(?:\))/,/^(?:=)/,/^(?:;)/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],"inclusive":true}}
+rules: [/^(?:\s*\n+)/,/^(?:\s+)/,/^(?:\/{1}\/{1}.*)/,/^(?:number\b)/,/^(?:word\b)/,/^(?:use as\b)/,/^(?:begin vars\b)/,/^(?:end vars\b)/,/^(?:begin statements\b)/,/^(?:end statements\b)/,/^(?:read\b)/,/^(?:print\b)/,/^(?:[a-zA-Z_]?"(\\.|[^\\"])*")/,/^(?:[0-9]+(\.[0-9]+)?\b)/,/^(?:[a-zA-Z_]([a-zA-Z_]|[0-9])*)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:%)/,/^(?:\()/,/^(?:\))/,/^(?:=)/,/^(?:;)/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],"inclusive":true}}
 });
 return lexer;
 })();

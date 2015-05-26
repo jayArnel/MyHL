@@ -33,9 +33,9 @@ variables = []
 %lex
 %%
 
-\s*\n+                             return 'NEWLINE'
+\s*\n+                          return 'NEWLINE'
 \s+                             /* skip whitespace */
-
+'/'{1}'/'{1}.*                  /* skip comments */
 "number"                        return 'NUMBER'
 "word"                          return 'WORD'
 "use as"                        return 'USE_AS'
