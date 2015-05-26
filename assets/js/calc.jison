@@ -75,7 +75,7 @@ expression
 
 e
     : e '+' e
-        {$$ = $1+$3;}
+        {checkOperation($1, $3);$$ = $1+$3;}
     | e '-' e
         {checkOperation($1, $3);$$ = $1-$3;}
     | e '*' e
@@ -89,8 +89,15 @@ e
     | NUM
         {$$ = Number(yytext);}
     | STRING
+        {$$ = $1.substring(1, $1.length - 1)}
     | IDENTIFIER
-        {$$ = getVar($1).getVal()}}
+        {
+            var variable = getVar($1);
+            if (variable === null) {
+                throw new Error( $1 +" variable has not been declared");
+            }
+            $$ = variable.getVal()
+        }
     ;
 
 assignment
@@ -99,12 +106,8 @@ assignment
     ;
 
 print
-    : PRINT IDENTIFIER
-        {print($2)}
-    | PRINT STRING
-        {$('#out').append($2.substring(1, $2.length - 1));}
-    | PRINT NUM
-        {$('#out').append($2)}
+    : PRINT expression
+        {$('#out').append($2);}
     ;
 
 read
@@ -177,20 +180,6 @@ var process_var = function(identifiers, dtype) {
     }   
 }
 
-var print = function(identifier) {
-    console.log(variables);
-    var variable = getVar(identifier);
-    if (variable === null) {
-        throw new Error( identifier +" variable has not been declared");
-    }
-    var val = variable.getVal();
-    if (val === null){
-        $('#out').append('<span class = "gray">null</span>');
-    } else {
-        $('#out').append(val);
-    }
-}
-
 var read = function(identifier) {
     console.log(variables);
     var variable = getVar(identifier);
@@ -255,5 +244,9 @@ var assign = function(identifier, val) {
 }
 
 var checkOperation = function(arg1, arg2) {
-    
+    if (isNaN(Number(arg1)) && !isNaN(Number(arg2))){
+        throw new Error("Unsupported operation: `word` and `number`.");
+    } else if (isNaN(Number(arg2)) && !isNaN(Number(arg1))) {
+        throw new Error("Unsupported operation: `number` and `word`.");
+    }
 }
