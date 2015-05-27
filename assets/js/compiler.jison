@@ -1,4 +1,3 @@
-
 %{
 function Variable(identifier,dtype) {
     this.identifier = identifier;
