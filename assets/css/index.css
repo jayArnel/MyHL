@@ -2,9 +2,6 @@ body{
 
     background-color: #333;
 }
-.icon-menu {
-    padding: 5px;
-}
 .icon-menu:hover{
     color: #1B8BDF;
 }
