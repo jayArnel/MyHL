@@ -11,11 +11,12 @@ body{
 
 .menu{
     background-color: white;
-    height: 91%;
+    height: 92%;
     padding: 0;
     width: 225px;
     position: absolute;
     left:-225px;
+    top: 50px;
 }
 .menu ul li{
     border-radius: 0;
@@ -40,7 +41,8 @@ a.list-group-item:active{
     width: 100%;
     min-width: 1300px;
     min-height: 300px;
-    height: 91%;
+    height: 92%;
+    top: 50px;
 }
 
 body, .site-wrapper{
