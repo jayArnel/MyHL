@@ -7,7 +7,7 @@
         this.setVal = function(val) {
             if (val instanceof Variable) {
                 if (this.dtype !== val.dtype) {
-                    throw new Error("Incompatible data type. Storing " +val.dtype+" to a "+ this.dtype +".");
+                    throw new Error("Type Error: Incompatible data type. Storing " +val.dtype+" to a "+ this.dtype +".");
                 }
             }
             this.val = val;
@@ -18,7 +18,7 @@
                 return this.val.getVal();
             } else {
                 if (this.val === null){
-                    throw new Error("Null Reference Error: " + this.identifier +" is null.");
+                    throw new Error("Null Error: " + this.identifier +" is null.");
                 }
                 return this.val;
             }
@@ -34,7 +34,7 @@
 
 \s*\n+                          return 'NEWLINE'
 \s+                             /* skip whitespace */
-'/'{1}'/'{1}.*                  /* skip comments */
+'/'{1}'/'{1}.*\n?               /* skip comments */
 "number"                        return 'NUMBER'
 "word"                          return 'WORD'
 "use as"                        return 'USE_AS'
@@ -137,7 +137,7 @@ e
         {
             var variable = getVar($1);
             if (variable === null) {
-                throw new Error( $1 +" variable has not been declared");
+                throw new Error( "Null Error: " + $1 +" variable has not been declared");
             }
             $$ = variable
         }
@@ -218,7 +218,7 @@ var process_var = function(identifiers, dtype) {
     for (i in vars){
         var identifier = vars[i];
         if (isAlreadyDeclared(identifier)){
-            throw new Error( identifier +" variable already declared");
+            throw new Error( "Null Error: " + identifier +" variable already declared");
         } else {
             variables.push(new Variable(identifier, dtype));
         }
@@ -228,13 +228,13 @@ var process_var = function(identifiers, dtype) {
 var read = function(identifier) {
     var variable = getVar(identifier);
     if (variable === null) {
-        throw new Error( identifier +" variable has not been declared");
+        throw new Error( "Null Error: " + identifier +" variable has not been declared");
     }
     var input = prompt("Enter value for variable `"+identifier+"`: ");
     if (variable.dtype === 'number') {
         input = parseInt(input);
         if (isNaN(input)){
-            throw new Error("Failure to parse input into a number.");
+            throw new Error("Type Error: Failure to parse input into a number.");
         }
     }
     variable.setVal(input);
@@ -261,24 +261,24 @@ var getVar = function(identifier){
 var assign = function(identifier, val) {
     var variable = getVar(identifier);
     if (variable === null) {
-        throw new Error( identifier +" variable has not been declared");
+        throw new Error("Null Error: " + identifier +" variable has not been declared");
     }
     if (typeof val === 'string'){
         if (val.match(/^[a-zA-Z_]([a-zA-Z_]|[0-9])*$/g) !== null) {
             //identifier
             identifier = getVar(val);
             if (identifier === null) {
-                throw new Error(val +" variable has not been declared");
+                throw new Error("Null Error: " + val +" variable has not been declared");
             } else {
                 if (variable.dtype !== identifier.dtype){
-                    throw new Error("Incompatible data type. Storing " +identifier.dtype+" to a "+ variable.dtype+".")
+                    throw new Error("Type Error: Incompatible data type. Storing " +identifier.dtype+" to a "+ variable.dtype+".")
                 } else {
                     variable.val = identifier;
                 }
             }
         } else if (val.match(/^[a-zA-Z_]?\"(\\.|[^\\"])*\"$/g) !== null) {
             if (variable.dtype == 'number') {
-                throw new Error("Incompatible data type. Storing string to a number.")
+                throw new Error("Type Error: Incompatible data type. Storing string to a number.")
             }
             val = val.substring(1, val.length - 1);
             variable.val = val;            
@@ -286,7 +286,7 @@ var assign = function(identifier, val) {
     }
     if (typeof val === 'number'){
         if (variable.dtype == 'word') {
-            throw new Error("Incompatible data type. Storing number to a word.")
+            throw new Error("Type Error:Incompatible data type. Storing number to a word.")
         }   
 
         variable.val = val;
