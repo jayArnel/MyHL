@@ -89,7 +89,6 @@ case 2:
             arg1 = args[0]
             arg2 = args[1]
             this.$ = arg1+arg2;
-            console.log(arg1 + " " + arg2);
         
 break;
 case 3:
@@ -147,7 +146,6 @@ case 9:
                 variables.push(variable);
             }
             this.$ = variable
-            console.log(variables);
         
 break;
 case 10:
@@ -328,33 +326,35 @@ parse: function parse(input) {
     return true;
 }};
 
-function Variable(identifier,dtype) {
-    this.identifier = identifier;
-    this.dtype = dtype;
-    this.val = null;
+    function Variable(identifier,dtype) {
+        this.identifier = identifier;
+        this.dtype = dtype;
+        this.val = null;
 
-    this.setVal = function(val) {
-        if (val instanceof Variable) {
-            if (this.dtype !== val.dtype) {
-                throw new Error("Incompatible data type. Storing " +val.dtype+" to a "+ this.dtype +".");
+        this.setVal = function(val) {
+            if (val instanceof Variable) {
+                if (this.dtype !== val.dtype) {
+                    throw new Error("Incompatible data type. Storing " +val.dtype+" to a "+ this.dtype +".");
+                }
+            }
+            this.val = val;
+        }
+
+        this.getVal = function() {
+
+            console.log(parser);
+            if (this.val instanceof Variable){
+                return this.val.getVal();
+            } else {
+                if (this.val === null){
+                    throw new Error("Null Reference Error: " + this.identifier +" is null.\n" + parser.lexer.showPosition());
+                }
+                return this.val;
             }
         }
-        this.val = val;
     }
 
-    this.getVal = function() {
-        if (this.val instanceof Variable){
-            return this.val.getVal();
-        } else {
-            if (this.val === null){
-                throw new Error("Null Reference Error: " + this.identifier +" is null.");
-            }
-            return this.val;
-        }
-    }
-}
-
-variables = []
+    variables = []
 
 var process_var = function(identifiers, dtype) {
     var vars = identifiers.split(',');
@@ -381,7 +381,6 @@ var read = function(identifier) {
         }
     }
     variable.setVal(input);
-    console.log(variable);
 }
 var print = function(expression){
     if (expression instanceof Variable){

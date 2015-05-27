@@ -1,31 +1,31 @@
 %{
-function Variable(identifier,dtype) {
-    this.identifier = identifier;
-    this.dtype = dtype;
-    this.val = null;
+    function Variable(identifier,dtype) {
+        this.identifier = identifier;
+        this.dtype = dtype;
+        this.val = null;
 
-    this.setVal = function(val) {
-        if (val instanceof Variable) {
-            if (this.dtype !== val.dtype) {
-                throw new Error("Incompatible data type. Storing " +val.dtype+" to a "+ this.dtype +".");
+        this.setVal = function(val) {
+            if (val instanceof Variable) {
+                if (this.dtype !== val.dtype) {
+                    throw new Error("Incompatible data type. Storing " +val.dtype+" to a "+ this.dtype +".");
+                }
+            }
+            this.val = val;
+        }
+
+        this.getVal = function() {
+            if (this.val instanceof Variable){
+                return this.val.getVal();
+            } else {
+                if (this.val === null){
+                    throw new Error("Null Reference Error: " + this.identifier +" is null.");
+                }
+                return this.val;
             }
         }
-        this.val = val;
     }
 
-    this.getVal = function() {
-        if (this.val instanceof Variable){
-            return this.val.getVal();
-        } else {
-            if (this.val === null){
-                throw new Error("Null Reference Error: " + this.identifier +" is null.");
-            }
-            return this.val;
-        }
-    }
-}
-
-variables = []
+    variables = []
 %}
 
 /* lexical grammar */
@@ -82,7 +82,6 @@ e
             arg1 = args[0]
             arg2 = args[1]
             $$ = arg1+arg2;
-            console.log(arg1 + " " + arg2);
         }
     | e '-' e
         {
@@ -133,7 +132,6 @@ e
                 variables.push(variable);
             }
             $$ = variable
-            console.log(variables);
         }
     | IDENTIFIER
         {
@@ -240,7 +238,6 @@ var read = function(identifier) {
         }
     }
     variable.setVal(input);
-    console.log(variable);
 }
 var print = function(expression){
     if (expression instanceof Variable){

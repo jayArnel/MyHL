@@ -33,6 +33,7 @@ $(document).ready(function(){
             $(".run").attr('disabled','disabled');
         }
      });
+
     var run = function(){
         variables = []
         $('#out').html('<p class="gray">Run:</p>')
@@ -41,13 +42,14 @@ $(document).ready(function(){
             $('#out').removeClass('bad');
         } catch(e) {
             $('#out').addClass('bad');
-            $('#out').append(e.verbose);
+            $('#out').append(e.message || e);
         }
         $('#out').append('<p class="gray">Done.</p>')
     }
+
     $(".run").click(run);
 
-    $(document).keydown(function(e) {
+    $(document).keyup(function(e) {
         if (e.ctrlKey && e.which == 77) {  // Ctrl + M
             if($('.close-menu').is(":visible")) {
                 closemenu();
@@ -61,18 +63,16 @@ $(document).ready(function(){
             }
         }
     });
-    var updateLines = function(data){
+    BehaveHooks.add(['keydown'], function(data){
         var numLines = data.lines.total,
             house = document.getElementsByClassName('line-nums')[0],
             html = '',
             i;
         for(i=0; i<numLines; i++){
             html += '<div>'+(i+1)+'</div>';                 
-        }
+        }   
         house.innerHTML = html;
-    }
-
-    BehaveHooks.add(['keydown'], updateLines);
+    });
     
     var editor = new Behave({
     
@@ -88,9 +88,5 @@ $(document).ready(function(){
 
     $('#input').on('scroll', function () {
         $('.line-nums').scrollTop($(this).scrollTop());
-    });
-
-    $('#input').bind('input propertychange', function() {
-        updateLines($(this).val());
     });
 });
