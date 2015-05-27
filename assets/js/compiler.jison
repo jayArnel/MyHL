@@ -17,9 +17,6 @@
             if (this.val instanceof Variable){
                 return this.val.getVal();
             } else {
-                if (this.val === null){
-                    throw new Error("Null Error: " + this.identifier +" is null.");
-                }
                 return this.val;
             }
         }
@@ -34,7 +31,7 @@
 
 \s*\n+                          return 'NEWLINE'
 \s+                             /* skip whitespace */
-'/'{1}'/'{1}.*\n?               /* skip comments */
+'/'{1}'/'{1}.*\n?               return 'NEWLINE'
 "number"                        return 'NUMBER'
 "word"                          return 'WORD'
 "use as"                        return 'USE_AS'

@@ -344,9 +344,6 @@ parse: function parse(input) {
             if (this.val instanceof Variable){
                 return this.val.getVal();
             } else {
-                if (this.val === null){
-                    throw new Error("Null Error: " + this.identifier +" is null.");
-                }
                 return this.val;
             }
         }
@@ -790,7 +787,7 @@ case 0:return 31
 break;
 case 1:/* skip whitespace */
 break;
-case 2:/* skip comments */
+case 2:return 31
 break;
 case 3:return 26
 break;

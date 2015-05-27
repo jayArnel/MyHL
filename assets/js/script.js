@@ -60,6 +60,8 @@ $(document).ready(function(){
         if (e.which == 113) { //F2
             if ($('#input').val().trim().length > 0) {
                 run();
+            }else {
+                $("#out").text('');
             }
         }
     });
@@ -89,4 +91,6 @@ $(document).ready(function(){
     $('#input').on('scroll', function () {
         $('.line-nums').scrollTop($(this).scrollTop());
     });
+
+    //
 });
