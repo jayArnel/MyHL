@@ -809,38 +809,40 @@ case 11:return 18
 break;
 case 12:return 13
 break;
-case 13:return 12
+case 13:return 13
 break;
-case 14:return 14
+case 14:return 12
 break;
-case 15:return 24
+case 15:return 14
 break;
-case 16:return 7
+case 16:return 24
 break;
-case 17:return 8
+case 17:return 7
 break;
-case 18:return 6
+case 18:return 8
 break;
-case 19:return 5
+case 19:return 6
 break;
-case 20:return 9
+case 20:return 5
 break;
-case 21:return 10
+case 21:return 9
 break;
-case 22:return 11
+case 22:return 10
 break;
-case 23:return 16
+case 23:return 11
 break;
-case 24:return 22
+case 24:return 16
 break;
-case 25:variables = []; return 40
+case 25:return 22
 break;
-case 26:variables = []; return 'INVALID'
+case 26:variables = []; return 40
+break;
+case 27:variables = []; return 'INVALID'
 break;
 }
 },
-rules: [/^(?:\s*\n+)/,/^(?:\s+)/,/^(?:\/{1}\/{1}.*\n?)/,/^(?:number\b)/,/^(?:word\b)/,/^(?:use as\b)/,/^(?:begin vars\b)/,/^(?:end vars\b)/,/^(?:begin statements\b)/,/^(?:end statements\b)/,/^(?:read\b)/,/^(?:print\b)/,/^(?:[a-zA-Z_]?"(\\.|[^\\"])*")/,/^(?:[0-9]+)/,/^(?:[a-zA-Z_]([a-zA-Z_]|[0-9])*)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:%)/,/^(?:\()/,/^(?:\))/,/^(?:=)/,/^(?:;)/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],"inclusive":true}}
+rules: [/^(?:\s*\n+)/,/^(?:\s+)/,/^(?:\/{1}\/{1}.*\n?)/,/^(?:number\b)/,/^(?:word\b)/,/^(?:use as\b)/,/^(?:begin vars\b)/,/^(?:end vars\b)/,/^(?:begin statements\b)/,/^(?:end statements\b)/,/^(?:read\b)/,/^(?:print\b)/,/^(?:"(\\.|[^\\"])*")/,/^(?:'(\\.|[^\\'])*')/,/^(?:[0-9]+)/,/^(?:[a-zA-Z_]([a-zA-Z_]|[0-9])*)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:%)/,/^(?:\()/,/^(?:\))/,/^(?:=)/,/^(?:;)/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],"inclusive":true}}
 });
 return lexer;
 })();
