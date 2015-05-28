@@ -370,8 +370,10 @@ var read = function(identifier) {
     }
     var input = prompt("Enter value for variable `"+identifier+"`: ");
     if (variable.dtype === 'number') {
-        input = parseInt(input);
-        if (isNaN(input)){
+        if (isNaN(input) || input === null) {
+            throw new Error("Type Error: Failure to parse input into a number.");
+        }
+        if (input.match(/^[0-9]+$/g) === null){
             throw new Error("Type Error: Failure to parse input into a number.");
         }
     }
