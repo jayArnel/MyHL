@@ -8,7 +8,7 @@ body{
 
 .menu{
     background-color: white;
-    height: 92%;
+    height: 92.4%;
     padding: 0;
     width: 225px;
     position: absolute;
@@ -38,7 +38,7 @@ a.list-group-item:active{
     width: 100%;
     min-width: 1300px;
     min-height: 300px;
-    height: 92%;
+    height: 92.4%;
     top: 50px;
 }
 
@@ -109,8 +109,23 @@ body, .site-wrapper{
   font-family: Inconsolata;
   font-size: 16px; 
   padding-left: 3px;
+  resize:none;
 }
 
+#input::-webkit-scrollbar, #out::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+#input::-webkit-scrollbar-track, #out::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+#input::-webkit-scrollbar-thumb, #out::-webkit-scrollbar-thumb {
+    background: #337ab7;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
 .line-nums {
   top: 0;
   bottom: 0;
