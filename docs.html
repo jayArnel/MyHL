@@ -14,7 +14,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#side-nav">
+<body data-spy="scroll" data-target="#side-nav" data-offset = "100">
     <div class = 'site-wrapper'  style="background-color:white">
       <nav class="navbar navbar-default navbar-fixed-top">
         <ul class="nav nav-pills">
@@ -81,5 +81,17 @@
     </div>
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $('#side-nav .nav li a').click(function(event) {
+        event.preventDefault();
+        $($(this).attr('href'))[0].scrollIntoView();
+        scrollBy(0, -100);
+      });
+      $('#side-nav .nav li a').last().click(function(event) {
+        event.preventDefault();
+        $($(this).attr('href'))[0].scrollIntoView();
+        scrollBy(0, 0);
+      });
+    </script>
 </body>
 </html>
