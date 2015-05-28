@@ -36,7 +36,7 @@ $(document).ready(function(){
 
     var run = function(){
         variables = []
-        $('#out').html('<p class="gray">Run:</p>')
+        $('#out').html('<span class="gray">Run:</span><br>')
         try{
             parser.parse($('#input').val());
             $('#out').removeClass('bad');

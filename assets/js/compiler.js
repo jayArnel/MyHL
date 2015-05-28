@@ -137,7 +137,10 @@ this.$ = parseInt(yytext);
 break;
 case 9:
 
-            var string = $$[$0];
+            var string = $$[$0].replace(/\\n/g, "<br>");
+            string = string.replace(/\\t/g, "    ");
+            string = string.replace(/\\"/g, '"');
+            string = string.replace(/\\'/g, "'");
             var variable = getVar(string);
             if (variable === null) {
                 var val = string.substring(1, string.length - 1)
@@ -383,6 +386,7 @@ var print = function(expression){
     if (expression instanceof Variable){
         expression = expression.getVal();
     }
+    expression = expression.replace("\n", "<br>");
     $('#out').append(expression);
 }
 var isAlreadyDeclared = function(identifier) {
