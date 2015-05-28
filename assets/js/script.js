@@ -56,13 +56,14 @@ $(document).ready(function(){
             } else {
                 openmenu();
             }
-        }
-        if (e.which == 113) { //F2
+        } else if (e.which == 113) { //F2
             if ($('#input').val().trim().length > 0) {
                 run();
             }else {
                 $("#out").text('');
             }
+        } else if (e.which == 27) {
+            $("#out").text('');
         }
     });
     BehaveHooks.add(['keyup'], function(data){
