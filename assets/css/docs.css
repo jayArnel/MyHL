@@ -1,11 +1,14 @@
 body {
     /*position: relative;*/
     /*background-color: #333;*/
-    min-width: 100%;
+
+  min-width: 100%;
 }
 
-#side-nav {
+.container {
   position: relative;
+}
+#side-nav {
   overflow: hidden;
   margin: 100px 0px 0px 20px;
 }
@@ -27,20 +30,24 @@ body {
 }
 
 body .nav-list>.active>a{
-  background-color:#DDBFF5;
+  background-color:#337ab7;
+  color:white;
   border-radius: 5%;
 }
-
+.section {
+  padding-top: 100px;
+}
+/*
 body .nav-list>.active>a:hover {
   background:#A146C2;
   border-radius: 5%;
-}
-
+}*/
+/*
 body .nav a:hover{
   color:#DDBFF5;
   background-color: #F7EDFA;
   border-radius: 5%;
-}
+}*/
 
 sub {
   background:white;
@@ -58,5 +65,5 @@ sub {
 }
 */
 .jumbotron {
-    margin-top: 20px;
+    margin-top:-20px;
 }
