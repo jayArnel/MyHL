@@ -65,7 +65,7 @@ $(document).ready(function(){
             }
         }
     });
-    BehaveHooks.add(['keydown'], function(data){
+    BehaveHooks.add(['keyup'], function(data){
         var numLines = data.lines.total,
             house = document.getElementsByClassName('line-nums')[0],
             html = '',
