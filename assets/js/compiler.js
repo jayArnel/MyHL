@@ -833,9 +833,9 @@ case 23:return 16
 break;
 case 24:return 22
 break;
-case 25:variables = []
+case 25:variables = []; return 40
 break;
-case 26:variables = []
+case 26:variables = []; return 'INVALID'
 break;
 }
 },

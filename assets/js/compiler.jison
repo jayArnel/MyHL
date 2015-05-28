@@ -54,8 +54,8 @@
 ")"                             return ')'
 "="                             return '='
 ";"                             return ';'
-<<EOF>>                         {variables = []}return 'EOF'
-.                               {variables = []}return 'INVALID'
+<<EOF>>                         {variables = []; return 'EOF'}
+.                               {variables = []; return 'INVALID'}
 
 /lex
 
