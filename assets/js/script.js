@@ -89,6 +89,17 @@ $(document).ready(function(){
         house.innerHTML = html;
     });
     
+    BehaveHooks.add(['keydown'], function(data){
+        var numLines = data.lines.total,
+            house = document.getElementsByClassName('line-nums')[0],
+            html = '',
+            i;
+        for(i=0; i<numLines; i++){
+            html += '<div>'+(i+1)+'</div>';                 
+        }   
+        house.innerHTML = html;
+    });
+    
     var editor = new Behave({
     
         textarea:       document.getElementById('input'),
