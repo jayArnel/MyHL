@@ -1,13 +1,3 @@
-body {
-    /*position: relative;*/
-    /*background-color: #333;*/
-
-  min-width: 100%;
-}
-
-.container {
-  position: relative;
-}
 #side-nav {
   overflow: hidden;
   margin: 100px 0px 0px 20px;
@@ -34,36 +24,12 @@ body .nav-list>.active>a{
   color:white;
   border-radius: 5%;
 }
-.section {
-  padding-top: 100px;
-}
-/*
-body .nav-list>.active>a:hover {
-  background:#A146C2;
-  border-radius: 5%;
-}*/
-/*
-body .nav a:hover{
-  color:#DDBFF5;
-  background-color: #F7EDFA;
-  border-radius: 5%;
-}*/
 
 sub {
   background:white;
   color:white;
 }
 
-/*@media only screen and (max-width: 1200px) { 
-  #side-nav{display:none;}
-  .site-wrapper {
-    margin-left: 0;
-  }
-  .site-wrapper {
-    width: 100%;
-  }
-}
-*/
 .jumbotron {
     margin-top:-20px;
 }
