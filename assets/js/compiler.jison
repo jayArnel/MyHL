@@ -42,7 +42,7 @@
 "read"                          return 'READ'
 "print"                         return 'PRINT'
 [a-zA-Z_]?\"(\\.|[^\\"])*\"     return 'STRING'
-[0-9]+("."[0-9]+)?\b            return 'NUM'
+[0-9]+                          return 'NUM'
 [a-zA-Z_]([a-zA-Z_]|[0-9])*     return 'IDENTIFIER'
 ","                             return ','
 "*"                             return '*'
@@ -117,7 +117,7 @@ e
             }
         }
     | NUM
-        {$$ = Number(yytext);}
+        {$$ = parseInt(yytext);}
     | STRING
         {
             var string = $1;
