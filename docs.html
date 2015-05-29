@@ -37,8 +37,13 @@
       <div id="side-nav">
       <ul class="nav nav-list affix">
         <li><a href="#about">About MyHL<br><sub>vertical height</sub></a></li>
+        <li><a href="#struct">Structure</a></li>
+        <li><a href="#keywords">Keywords</a></li>
+        <li><a href="#dtype">Data Types</a></li>
+        <li><a href="#variables">Variables</a></li>
+        <li><a href="#expressions">Expressions</a></li>
         <li><a href="#operations">Operations</a></li>
-        <li><a href="#functions">Functions</a></li>
+        <li><a href="#statements">Statements</a></li>
         <li><a href="#error">Error List</a></li>
       </ul>
     </div>
@@ -47,33 +52,168 @@
           <div id="about">
             <div class="container-fluid">
               <h1>About MyHL</h1>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+              <p>MyHL is a simple and abstract high-level computer language. This a project for our Programming Languages course.</p>
+              <p>MyHL implements static binding and strong typing.</p>
             </div>
           </div>
+          <div id="struct">
+            <div class="container-fluid">
+              <h1>Structure</h1>
+              <p>The basic structure of MyHL is shown below:</p>
+              <pre>begin vars<br><em>...<br>variable declarations<br>...</em><br>end vars<br>begin statements<br><em>...<br>program statements...</em></em><br>end statements
+              </pre>
+              <h2>Variable Block</h2>
+              <p>Every MyHL program must start with a variable block enclosed by the keywords <code>begin vars</code> on the first line and <code>end vars</code> on the last line. This block contains all the variable declarations for the program. This is the only block were variables can be declared and only the variables that are declared can be used. Variable declarations are discussed <a href="#variables">here</a>.</p>
+              <pre>begin vars<br>x, y, z use as number;<br>name use as word;<br>end vars</pre>
+              <h2>Statement Block</h2>
+              <p>The statement block comes right after the variable block and is enclosed by the keywords <code>begin statements</code> on the first line and <code>end statements</code> on the last line. This block contains the main logic of the program represented by a combination of program statements. Learn more about statements <a href="#statements">here</a>. </p>
+              <pre>begin statements<br>read x;<br>read y;<br>z = x + y;<br>print z;<br>print "MyHL";<br>end statements</pre>
+            </div>
+          </div>
+          <div id = "keywords">
+            <div class = "container-fluid">
+              <h1>Keywords</h1>
+              <p>Keywords are reserved words that have special purposes in the program and cannot be used in any other context (except in comments). These are the keywords used in MyHL:</p>
+              <ol>
+                <li><p>begin vars</p></li> 
+                <li><p>end vars</p></li>
+                <li><p>begin statements</p></li>
+                <li><p>end statements</p></li>
+                <li><p>use as</p></li>
+                <li><p>word</p></li>
+                <li><p>number</p></li>
+                <li><p>read</p></li>
+                <li><p>print</p></li>
+              </ol>
+            </div>
+          </div>
+          <div id="dtype">
+            <div class="container-fluid">
+              <h1>Data Types</h1>
+              <p>MyHL implements only two data types: number and word.</p>
+              <h2>Number</h2>
+              <p>Numbers are non-negative integers. The program will throw an <code>Overflow Error</code> when it encounters a negative number.</p>
+              <h2>Word</h2>
+              <p>Words are sequences of alphanumeric and special characters enclosed in quotes.</p>
+              <pre>begin statements<br>word1 = "this is a word";<br>word2 = 'this is a word';<br>end statements</pre>
+            </div>
+          </div>
+          <div id="variables">
+            <div class="container-fluid">
+              <h1>Variables</h1>
+              <p>Variables are storage locations associated with a name or identifier. They are used to store values within your program. 
+              <h2>Declaration</h2>
+              <p>To use a variable, it must be declared inside the variable block. A variable is declared by defining a name followed by the key word <code>use as</code>, the data type for that variable and a semicolon, <code>;</code>, as punctuation.</p>
+              <p><code><em>identifier</em> use as <em>data type</em>;</code></p>
+              <p>You can also declare multiple variables at once if they are of the same data type.</p>
+              <p><code><em>identifier1, indentifer2</em> use as <em>data type</em>;</code></p>
+              <p>Example variable declarations:</p>
+              <pre>begin vars<br>x, y, z use as number;<br>name use as word;<br>end vars</pre>
+              <h2>Identifier rules</h2>
+              <p>MyHL's naming rules on identifiers are the same from that of C. Identifiers must conform with the following rules in order to deemed valid.</p>
+              <ol>
+                <li><p>Identifiers must not have other characters other than letters, digits and underscores.</p></li> 
+                <li><p>The first character must not be a digit.</p></li>
+                <li><p>The identifier must not be a <a href="#keywords">keyword</a> in MyHL.</p></li>
+              </ol>
+              <p>It is also important to note that identifiers are case-sensitive. Identifiers with the same name but of different case are treated differently, so <code>seaside</code>, <code>SeaSide</code> and <code>SEASIDE</code> are distinct identifiers.
+            </div>
+          </div>
+          <div id="expressions">
+            <div class="container-fluid">
+              <h1>Expressions</h1>
+              <p>An expression is a piece of code that represents a value. An expression could be a:</p>
+               <ol>
+                <li><p>Number</p></li>
+                <li><p>Word</p></li> 
+                <li><p>Variable</p></li> 
+                <li><p>Operations between expressions</p></li> 
+              </ol>
+              <p>The validity of an expression inherents the validity of these program elements.</p>
+              </div>
+            </div>
           <div id="operations">
             <div class="container-fluid">
               <h1>Operations</h1>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+              <p>MyHL supports basic arithmetic operations. Note that since MyHL supports strong typing only, all
+              expressions involved in the operations must be of the data type <em>number</em>. Otherwise, an 
+              <code>Operation Error</code> will be raised.</p>
+              <h2>Addition</h2>
+              <p><code> expression + expression</code></p>
+              <pre>1 + 2<br>OUT: 3</pre>
+              <h2>Subtraction</h2>
+              <p><code> expression - expression</code></p>
+              <pre>4 + 2<br>OUT: 2</pre>
+              <h2>Multiplication</h2>
+              <p><code> expression * expression</code></p>
+              <pre>4 * 2<br>OUT: 8</pre>
+              <h2>Division</h2>
+              <p><code> expression / expression</code></p>
+              <pre>6 / 2<br>OUT: 3</pre>
+              <h2>Modulo</h2>
+              <p><code> expression % expression</code></p>
+              <pre>3 % 2<br>OUT: 1</pre>
+              <h2>Parenthesis and Precedence</h2>
+              <p>MyHL supports PEMDAS precedence on operations.</p>
+              <pre>(3 + 2) * 2<br>OUT: 10<br>3 + 2 * 2<br>OUT: 7</pre>
+              <h2>Word Concatenation</h2>
+              <p>MyHL also supports concatenation of words by using the <code>+</code> operator on words</p>
+              <pre>"a "+ "string"<br>OUT: "a string"</pre>
+              <p>Other operations mentioned above are not supported for words and will raise an <code>Operation Error</code> if used.</p>
             </div>  
           </div>
-          <div id="functions">
+          <div id="statements">
             <div class="container-fluid">
-              <h1>Functions</h1>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+              <h1>Statements</h1>
+              <p>Program statements represent the main logic of the program. They control how values and variables are manipulated in the program for whatever purpose the program serves. They must be used within the statement block of the program. Essentially there are three types of program statements in MyHL: <code>read</code>, print and assignment statements.</p>
+              <h2>Read</h2>
+              <p>The <code>read</code> statement asks the user for input and stores it in the variable specified. It is called by using the <code>read</code> keyword followed by the identifier of the variable in which the input will be stored and semicolon, <code>;</code>, for punctuation.</p>
+              <p><code>read <em>identifier</em>;</code></p>
+              <pre>begin statements<br>read x;<br>read y;<br>end statements</pre>
+              <p>The <code>read</code> statement will throw an error if:</p>
+              <ol>
+                <li><p>the variable specified is not declared in the variable block: <code>Null Error</code>; and if</p></li> 
+                <li><p>the variable specified is of data type <code>number</code> and the input does not represent a number: <code>Type Error</code> </p></li> 
+              </ol>
+              <h2>Print</h2>
+              <p>The <code>print</code> statement displays the value of an expression to the output window. It is called by using the <code>print</code> keyword followed by either a variable or an expression and a semicolon, <code>;</code>, for punctuation.</p>
+              <p><code>print <em>expression</em>;</code></p>
+              <pre>begin statements<br>print x;<br>print "MyHL";<br>print (4 + 2) * 2;<br>end statements</pre>
+              <p>The <code>print</code> statement will throw an error if:</p>
+              <ol>
+                <li><p>the variable used in the statement is not declared in the variable block: <code>Null Error</code>; and if</p></li> 
+                <li><p>the expression is invalid. <em>see <a href="#expressions">Expressions</a></em> </p></li> 
+              </ol>
+              <h2>Assignment</h2>
+              <p>An assignment statement stores an expression's value into a variable. An assignement statement is made up of the identifier of a variable followed by the <code>=</code> operator and an the expression on the right side.</p>
+              <p><code><em>identifier</em> = <em>expression</em>;</code></p>
+              <pre>begin statements<br>x = 1;<br>y = 5;<br>z = x + y - 20;<br>end statements</pre>
+              <p>An assignment statement will throw an error if:</p>
+              <ol>
+                <li><p>the variable used in the statement is not declared in the variable block: <code>Null Error</code>; if</p></li> 
+                <li><p>the expression is invalid; <em>see <a href="#expressions">Expressions</a></em>, and if</p></li>
+                <li><p>the value of the expression and the data type of the variable is incompatible (strong typing); <code>Type Error</code>. </p></li>
+              </ol>
+              <h2>Comments</h2>
+              <p>Comments are constructs ignored by the program. They are not executed and serve only as annotations. Comments in MyHL are preceded by a double backslash: <code>//</code>. Everything after the double backslash until the end of the line is considered a comment.</p>
+              <pre>//this is a comment<br>begin vars//variable block here<br>x, y, z use as number;//another comment<br>name use as word;<br>end vars<br>begin statements<br>x = 1;<br>y = 5;<br>z = x + y - 20;</em><br>end statements
+              </pre>
             </div>  
           </div>
           <div id="error">
             <div class="container-fluid">
               <h1>Error List</h1>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-              <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+              <p>This is the list of errors that may be thrown by the program.</p>
+              <h2>Parse Error</h2>
+              <p>This is the general error thrown for syntax error encountered by the parser. This is a native support by Jison.</p>
+              <h2>Null Error</h2>
+              <p>This is the error thrown when a variable that is not declared is used in a statement.</p>
+              <h2>Operation Error</h2>
+              <p>This is the error thrown for an operation among incompatible data types.</p>
+              <h2>Type Error</h2>
+              <p>This is the error thrown when storing an expression into an incompatible data type (strong typing).</p>
+              <h2>Overflow Error</h2>
+              <p>This is the error thrown for negative values.</p>
             </div>  
           </div>
         </div>
@@ -87,10 +227,10 @@
         $($(this).attr('href'))[0].scrollIntoView();
         scrollBy(0, -100);
       });
-      $('#side-nav .nav li a').last().click(function(event) {
+      $('.container a').click(function(event) {
         event.preventDefault();
         $($(this).attr('href'))[0].scrollIntoView();
-        scrollBy(0, 0);
+        scrollBy(0, -100);
       });
     </script>
 </body>

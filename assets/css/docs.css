@@ -15,14 +15,14 @@
 
 .nav-list li a {
   height:60px;
-  font-size:1.4em;
+  font-size:18px;
   line-height:40px;
 }
 
 body .nav-list>.active>a{
   background-color:#337ab7;
   color:white;
-  border-radius: 5%;
+  border-radius: 3%;
 }
 
 sub {
