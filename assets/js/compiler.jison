@@ -87,6 +87,8 @@ e
             arg1 = args[0];
             arg2 = args[1];
             $$ = arg1-arg2;
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
+            if ($$ < 0) throw new Error("Overflow Error: Negative value.");
         }
     | e '*' e
         {
@@ -94,6 +96,7 @@ e
             arg1 = args[0];
             arg2 = args[1];
             $$ = arg1*arg2;
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
         }
     | e '/' e
         {
@@ -101,6 +104,7 @@ e
             arg1 = args[0];
             arg2 = args[1];
             $$ = arg1/arg2;
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
         }
     | e '%' e
         {
@@ -108,14 +112,12 @@ e
             arg1 = args[0];
             arg2 = args[1];
             $$ = arg1%arg2;
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
         }
     | '(' e ')'
         {
-            if (isNaN()){
-                throw new Error('Operation Error: Word in parentheses.')  
-            } else {
-                $$ = $2;
-            }
+            $$ = $2;
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
         }
     | NUM
         {$$ = parseInt(yytext);}
@@ -246,7 +248,6 @@ var print = function(expression){
     if (expression instanceof Variable){
         expression = expression.getVal();
     }
-    expression = expression.replace("\n", "<br>");
     $('#out').append(expression);
 }
 var isAlreadyDeclared = function(identifier) {

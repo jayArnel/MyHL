@@ -97,6 +97,8 @@ case 3:
             arg1 = args[0];
             arg2 = args[1];
             this.$ = arg1-arg2;
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
+            if (this.$ < 0) throw new Error("Overflow Error: Negative value.");
         
 break;
 case 4:
@@ -105,6 +107,7 @@ case 4:
             arg1 = args[0];
             arg2 = args[1];
             this.$ = arg1*arg2;
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
         
 break;
 case 5:
@@ -113,6 +116,7 @@ case 5:
             arg1 = args[0];
             arg2 = args[1];
             this.$ = arg1/arg2;
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
         
 break;
 case 6:
@@ -121,15 +125,13 @@ case 6:
             arg1 = args[0];
             arg2 = args[1];
             this.$ = arg1%arg2;
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
         
 break;
 case 7:
 
-            if (isNaN()){
-                throw new Error('Operation Error: Word in parentheses.')  
-            } else {
-                this.$ = $$[$0-1];
-            }
+            this.$ = $$[$0-1];
+            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
         
 break;
 case 8:
@@ -386,7 +388,6 @@ var print = function(expression){
     if (expression instanceof Variable){
         expression = expression.getVal();
     }
-    expression = expression.replace("\n", "<br>");
     $('#out').append(expression);
 }
 var isAlreadyDeclared = function(identifier) {
