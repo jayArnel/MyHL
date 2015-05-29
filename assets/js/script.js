@@ -47,10 +47,9 @@ $(document).ready(function(){
         $('#out').html('<span class="gray">Run:</span><br>')
         try{
             parser.parse($('#input').val());
-            $('#out').removeClass('bad');
         } catch(e) {
-            $('#out').addClass('bad');
-            $('#out').append(e.message || e);
+            $('#out').append('<br><span class = "bad"></span>')
+            $('.bad').text(e.message || e);
         }
         $('#out').append('<p class="gray">Done.</p>')
     }

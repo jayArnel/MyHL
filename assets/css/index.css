@@ -90,8 +90,8 @@ pre {
   border-radius: 0px;
 }
 
-.content.bad{
-  color:red !important;
+.bad{
+  color:#E71610 !important;
 }
 
 .header {
