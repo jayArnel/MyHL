@@ -87,7 +87,7 @@ e
             arg1 = args[0];
             arg2 = args[1];
             $$ = arg1-arg2;
-            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
+            if (isNaN($$)) throw new Error("Operation Error: Unsupported operation on words");
             if ($$ < 0) throw new Error("Overflow Error: Negative value.");
         }
     | e '*' e
@@ -96,7 +96,7 @@ e
             arg1 = args[0];
             arg2 = args[1];
             $$ = arg1*arg2;
-            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
+            if (isNaN($$)) throw new Error("Operation Error: Unsupported operation on words");
         }
     | e '/' e
         {
@@ -104,7 +104,7 @@ e
             arg1 = args[0];
             arg2 = args[1];
             $$ = arg1/arg2;
-            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
+            if (isNaN($$)) throw new Error("Operation Error: Unsupported operation on words");
         }
     | e '%' e
         {
@@ -112,12 +112,12 @@ e
             arg1 = args[0];
             arg2 = args[1];
             $$ = arg1%arg2;
-            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
+            if (isNaN($$)) throw new Error("Operation Error: Unsupported operation on words");
         }
     | '(' e ')'
         {
             $$ = $2;
-            if (isNaN) throw new Error("Operation Error: Unsupported operation on words");
+            if (isNaN($$)) throw new Error("Operation Error: Unsupported operation on words");
         }
     | NUM
         {$$ = parseInt(yytext);}
