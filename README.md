@@ -1,4 +1,4 @@
 # MyHL
-An abstract high-level computer language.
+A simple, abstract high-level computer language.
 
 
